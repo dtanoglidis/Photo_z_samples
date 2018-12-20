@@ -538,7 +538,6 @@ def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
     
     Fish[1,2] = Fish[2,1] = sum(inv_sigma*dC_ldsig8*dC_ldShift)
     
-    
     return Fish   
 
 
