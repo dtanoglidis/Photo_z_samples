@@ -82,7 +82,7 @@ alpha_om  = omega_m/10.0
 alpha_sig = sigma_8/10.0
 
 #==========================
-nz = 1000 #number of steps to use for the radial/redshift integration
+nz = 10000 #number of steps to use for the radial/redshift integration
 
 zarray = np.linspace(0,4.0,nz)
 z = zarray[1:-1]
@@ -158,7 +158,7 @@ def C_l(bias, n_z, Omega_m_var , sig_8_var):
     #====================================================================================
     #Redshift range for calculations and integration
     
-    nz = 1000 #number of steps to use for the radial/redshift integration
+    nz = 10000 #number of steps to use for the radial/redshift integration
     kmax=10.0  #kmax to use
 
     zarray = np.linspace(0,4.0,nz)
@@ -295,7 +295,7 @@ def shift_der_C_l(bias, n_z, dn_dDz, Omega_m, sig_8):
     #========================================================================
     #Redshift range for calculations and integration
     
-    nz = 1000 #number of steps to use for the radial/redshift integration
+    nz = 10000 #number of steps to use for the radial/redshift integration
     kmax=10.0  #kmax to use
 
     zarray = np.linspace(0,4.0,nz)
@@ -419,7 +419,7 @@ def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
     
     #Redshift range for calculations and integration
     
-    nz = 1000 #number of steps to use for the radial/redshift integration
+    nz = 10000 #number of steps to use for the radial/redshift integration
     kmax = 10.0  #kmax to use
 
     zarray = np.linspace(0,4.0,nz)
