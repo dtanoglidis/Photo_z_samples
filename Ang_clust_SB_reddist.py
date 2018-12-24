@@ -22,7 +22,7 @@
 # ==========================================================================#
 # ==========================================================================#
 #
-import stuff
+#import stuff
 import numpy as np 
 import scipy
 from scipy.special import erf
@@ -232,7 +232,7 @@ def matter_der_C_l(bias, n_z, Omega_m , sig_8):
     C_mat_1 = C_l(bias, n_z, Omega_m+alpha_m , sig_8)[1]
     C_mat_2 = C_l(bias, n_z, Omega_m-alpha_m , sig_8)[1]
     
-    mat_der = (C_mat_1 - C_mat_2)/(2.0*alpha)
+    mat_der = (C_mat_1 - C_mat_2)/(2.0*alpha_m)
     return mat_der
     
     
@@ -259,18 +259,22 @@ def sigma_der_C_l(bias, n_z, Omega_m , sig_8):
     C_sig_2 = C_l(bias, n_z, Omega_m , sig_8-alpha_s)[1]
     
     sig_der = (C_sig_1 - C_sig_2)/(2.0*alpha_s)
-    return 
+
+    return sig_der
+
+ 
+
 
 # ========================================================================================
 # ========================================================================================
 # Derivative with respect to the shift parameter
 
 def shift_der_C_l(bias, n_z, dn_dDz, Omega_m, sig_8):
-	"""
-	Function that calculates the derivative of C_l with respect to
-	the redshift shift, Dz
-	-------------------------------------------------------
-	bias : bias - constant or function
+    """
+    Function that calculates the derivative of C_l with respect to
+    the redshift shift, Dz
+    -------------------------------------------------------
+    bias : bias - constant or function
     n_z : redshift distribution at a redshift bin
     dn_dDz :
     Omega_m_var: Omega matter - can change
@@ -278,9 +282,9 @@ def shift_der_C_l(bias, n_z, dn_dDz, Omega_m, sig_8):
     --------------
     Returns:
     derivative w/r to the shift parameter
-	"""
-	# Constants
-	h = 0.682
+    """
+    # Constants
+    h = 0.682
     c = 2.99792e+5
     # =======================================================================
     # Selecting cosmology
@@ -383,11 +387,11 @@ def breaking_ell(ells, search_array):
 # Calculation of the Fisher Matrix in a single bin
 
 def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
-	"""
-	Calculates and returns the Fisher matrix for a single bin
-	------------------------------
-	Inputs:
-	z_mean : mean redshift of the bin
+    """
+    Calculates and returns the Fisher matrix for a single bin
+    ------------------------------
+    Inputs:
+    z_mean : mean redshift of the bin
     bias : bias - function or constant
     n_z : redshift distribution of the bin
     dn_dDz : derivative of the redshift distribution, with respect to the shift parameter Dz
@@ -398,7 +402,7 @@ def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
     Outputs:
     Fisher matrix for a single bin
     """
-	Omega_m = 0.301
+    Omega_m = 0.301
     sigma_8 = 0.798
     h = 0.682
 
@@ -447,21 +451,21 @@ def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
     C_ell_1 = C_l(bias, n_z, Omega_m , sigma_8)[1]
     dC_ldOm_1 = matter_der_C_l( bias, n_z, Omega_m , sigma_8)
     dC_ldsig8_1 = sigma_der_C_l( bias, n_z, Omega_m , sigma_8)
-    dC_ldShift_1 = shift_der_C_l(bias, n_z, dn_dDz, Omega_m, sig_8)
+    dC_ldShift_1 = shift_der_C_l(bias, n_z, dn_dDz, Omega_m, sigma_8)
 
 
-   # ======================================================================
-   # Find the breaking ells now
+    # ======================================================================
+    # Find the breaking ells now
 
-   al_1, l_break_1 = breaking_ell(ell_lin, dC_ldOm_1)
-   al_2, l_break_2 = breaking_ell(ell_lin, dC_ldShift_1)
+    al_1, l_break_1 = breaking_ell(ell_lin, dC_ldOm_1)
+    al_2, l_break_2 = breaking_ell(ell_lin, dC_ldShift_1)
 
 
-   # ======================================================================
-   ls = np.arange(10, 2000, dtype=np.float64)
+    # ======================================================================
+    ls = np.arange(10, 2000, dtype=np.float64)
     
     #Initialize
-    
+
     C_ell = np.zeros(np.size(ls)) #C_ell's
     dC_ldOm = np.zeros(np.size(ls)) # matter derivative
     dC_ldsig8 = np.zeros(np.size(ls)) #sigma_8 derivative
@@ -479,7 +483,7 @@ def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
     # populate 
 
     for k, l in enumerate(ls):
-    	ell = np.log10(float(l))
+        ell = np.log10(float(l))
         C_ell[k]  = 10.0**(C_l_matr_interp(ell))
         dC_ldsig8[k] = 10.0**(C_sig_interp(ell))
 
@@ -507,8 +511,8 @@ def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
                 dC_ldShift[k] = -(10.0**C_shift_interp(ell))
                 
        # =================================================================================
-   	# ====================================================================================
-   	ls = ls[:l_max-9]
+    # ====================================================================================
+    ls = ls[:l_max-9]
     C_ell = C_ell[:l_max-9]
     dC_ldOm = dC_ldOm[:l_max-9]
     dC_ldsig8 = dC_ldsig8[:l_max-9]
