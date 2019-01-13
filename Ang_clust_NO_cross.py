@@ -11,7 +11,7 @@
 # Here, we don't take into account the cross correlations between the bins.
 #
 # In our forecast we leave as free parameters:
-#  - The cosmological parameters Omega_m and σ_8
+#  - The cosmological parameters Omega_m and \sigma_8
 #  - One photo-z scatter parameter #\sigma_{z,0}
 #  - One photo-z bias parameter, z_b, per bin (so N_bins parameters in total)
 #  - One galaxy bias parameter, b_g, per bin (so N_bins parameters in total)
@@ -392,7 +392,7 @@ def sig_z_der_C_l_i(z_i, z_f, sig_z, z_bias, bias, Omega_m , sig_8, z_0, a, b):
     derivative w/r to photo_z scatter in a bin i
     """
     
-    alpha_sig = 0.01
+    alpha_sig = sig_z/10.0
     
     C_sig_z_1 = C_l_i(z_i, z_f, sig_z + alpha_sig, z_bias, bias, Omega_m, sig_8, z_0, a, b)[1]
     C_sig_z_2 = C_l_i(z_i, z_f, sig_z - alpha_sig, z_bias, bias, Omega_m , sig_8, z_0, a, b)[1]
@@ -522,7 +522,7 @@ def Fish_single_bin(z_i, z_f, N_bins, i_bin, sig_z, z_bias, bias, f_sky, N_gal, 
     C_ell_1 = C_l_i(z_i, z_f, sig_z, z_bias, bias, Omega_m, sigma_8, z_0, a, b)[1] #C_ell's
     dC_ldOm_1 = matter_der_C_l_i(z_i, z_f, sig_z, z_bias, bias, Omega_m, sigma_8, z_0, a, b) #Matter derivative
     dC_ldsig8_1 = sigma_der_C_l_i(z_i, z_f, sig_z, z_bias, bias, Omega_m, sigma_8, z_0, a, b) #Sigma_8 derivative
-    dC_ldbias_1 = bias_der_C_l_i(z_i, z_f, sig_z, z_bias, bias, Omega_m, sigma_8, z_0, a, b) # Galaxy bias derivative
+    #dC_ldbias_1 = bias_der_C_l_i(z_i, z_f, sig_z, z_bias, bias, Omega_m, sigma_8, z_0, a, b) # Galaxy bias derivative
     dC_ldz_bias_1  = z_bias_der_C_l_i(z_i, z_f, sig_z, z_bias, bias, Omega_m , sigma_8, z_0, a, b) # Photometric bias derivative
     dC_ldsig_z_1 = sig_z_der_C_l_i(z_i, z_f, sig_z, z_bias, bias, Omega_m , sigma_8, z_0, a, b) # Photometric scatter derivative
 
@@ -546,7 +546,7 @@ def Fish_single_bin(z_i, z_f, N_bins, i_bin, sig_z, z_bias, bias, f_sky, N_gal, 
     C_ell = np.zeros(np.size(ls)) #C_ell's
     dC_ldOm = np.zeros(np.size(ls)) # matter derivative
     dC_ldsig8 = np.zeros(np.size(ls)) #sigma_8 derivative
-    dC_ldbias = np.zeros(np.size(ls)) #galaxy bias derivative
+    #dC_ldbias = np.zeros(np.size(ls)) #galaxy bias derivative
     dC_ldz_bias = np.zeros(np.size(ls)) #z_bias derivtive
     dC_ldsig_z = np.zeros(np.size(ls)) #redshift error spread derivative
     
@@ -556,7 +556,7 @@ def Fish_single_bin(z_i, z_f, N_bins, i_bin, sig_z, z_bias, bias, f_sky, N_gal, 
     C_l_matr_interp = UnivariateSpline(ell_lin, np.log10(C_ell_1+ 1.0e-20), s=0.0)
     C_om_mat_interp = UnivariateSpline(ell_lin, np.log10(abs(dC_ldOm_1+ 1.0e-20)), s=0.0)
     C_sig_interp = UnivariateSpline(ell_lin, np.log10(dC_ldsig8_1+1.0e-20), s=0.0)
-    C_bias_interp = UnivariateSpline(ell_lin, np.log10(dC_ldbias_1+1.0e-20),s=0.0)
+    #C_bias_interp = UnivariateSpline(ell_lin, np.log10(dC_ldbias_1+1.0e-20),s=0.0)
     C_zbias_interp = UnivariateSpline(ell_lin, np.log10(abs(dC_ldz_bias_1+1.0e-20)), s=0.0)
     C_sigz_interp = UnivariateSpline(ell_lin, np.log10(abs(dC_ldsig_z_1+1.0e-20)), s=0.0)
     
@@ -567,7 +567,7 @@ def Fish_single_bin(z_i, z_f, N_bins, i_bin, sig_z, z_bias, bias, f_sky, N_gal, 
         ell = np.log10(float(l))
         C_ell[k]  = 10.0**(C_l_matr_interp(ell))
         dC_ldsig8[k] = 10.0**(C_sig_interp(ell))
-        dC_ldbias[k] = 10.0**(C_bias_interp(ell))
+        #dC_ldbias[k] = 10.0**(C_bias_interp(ell))
         
         
         if (al_1 == 0):
@@ -610,7 +610,7 @@ def Fish_single_bin(z_i, z_f, N_bins, i_bin, sig_z, z_bias, bias, f_sky, N_gal, 
     C_ell = C_ell[:l_max-9]
     dC_ldOm = dC_ldOm[:l_max-9]
     dC_ldsig8 = dC_ldsig8[:l_max-9]
-    dC_ldbias = dC_ldbias[:l_max-9]
+    #dC_ldbias = dC_ldbias[:l_max-9]
     dC_ldz_bias = dC_ldz_bias[:l_max-9]
     dC_ldsig_z = dC_ldsig_z[:l_max-9]
     
@@ -625,7 +625,8 @@ def Fish_single_bin(z_i, z_f, N_bins, i_bin, sig_z, z_bias, bias, f_sky, N_gal, 
     #===============================================================================
     # Calculation of the elements of the Fisher matrix
     
-    dim = 2*N_bins + 3
+    #dim = 2*N_bins + 3
+    dim = N_bins + 3
     #The Fisher matrix at each bin has dimensions (2*N_bins +3)*(2*N_bins +3)
     Fish = np.zeros([dim,dim])
     #Labels correspond to:
@@ -638,26 +639,26 @@ def Fish_single_bin(z_i, z_f, N_bins, i_bin, sig_z, z_bias, bias, f_sky, N_gal, 
     Fish[1,1] = sum(inv_sigma*(dC_ldsig8**2.0))
     Fish[2,2] = sum(inv_sigma*(dC_ldsig_z**2.0))
     Fish[2+i_bin,2+i_bin] = sum(inv_sigma*(dC_ldz_bias**2.0))
-    Fish[2 + N_bins + i_bin,2 + N_bins + i_bin] = sum(inv_sigma*(dC_ldbias**2.0))
+    #Fish[2 + N_bins + i_bin,2 + N_bins + i_bin] = sum(inv_sigma*(dC_ldbias**2.0)) + 1.0e36
     
     
     #Non-diagonal terms now 
     Fish[0,1] = Fish[1,0] = sum(inv_sigma*dC_ldOm*dC_ldsig8)
     Fish[0,2] = Fish[2,0] = sum(inv_sigma*dC_ldOm*dC_ldsig_z) 
     Fish[0,2 + i_bin] = Fish[2 + i_bin, 0] = sum(inv_sigma*dC_ldOm*dC_ldz_bias)
-    Fish[0,2 + N_bins + i_bin] = Fish[2 + N_bins + i_bin,0] = sum(inv_sigma*dC_ldOm*dC_ldbias)
+    #Fish[0,2 + N_bins + i_bin] = Fish[2 + N_bins + i_bin,0] = sum(inv_sigma*dC_ldOm*dC_ldbias)
     
     
     Fish[1,2] = Fish[2,1] = sum(inv_sigma*dC_ldsig8*dC_ldsig_z)
     Fish[1,2 + i_bin] = Fish[2 + i_bin,1] = sum(inv_sigma*dC_ldsig8*dC_ldz_bias)
-    Fish[1,2 + N_bins + i_bin] = Fish[2 + N_bins + i_bin,1] = sum(inv_sigma*dC_ldsig8*dC_ldbias)
+    #Fish[1,2 + N_bins + i_bin] = Fish[2 + N_bins + i_bin,1] = sum(inv_sigma*dC_ldsig8*dC_ldbias)
     
     
     Fish[2,2 + i_bin] = Fish[2 + i_bin,2] = sum(inv_sigma*dC_ldsig_z*dC_ldz_bias)
-    Fish[2,2 + N_bins + i_bin] = Fish[2 + N_bins + i_bin,2] = sum(inv_sigma*dC_ldsig_z*dC_ldbias)
+    #Fish[2,2 + N_bins + i_bin] = Fish[2 + N_bins + i_bin,2] = sum(inv_sigma*dC_ldsig_z*dC_ldbias)
     
     
-    Fish[2 + i_bin,2 + N_bins + i_bin] = Fish[2 + N_bins + i_bin,2 + i_bin] = sum(inv_sigma*dC_ldz_bias*dC_ldbias)    
+    #Fish[2 + i_bin,2 + N_bins + i_bin] = Fish[2 + N_bins + i_bin,2 + i_bin] = sum(inv_sigma*dC_ldz_bias*dC_ldbias)    
     
     
     return Fish
@@ -670,7 +671,8 @@ def Full_Fisher(z_init, z_final, N_bins, sig_z, f_sky, N_gal_tot, z_0, a, b):
 
     """
     Calculates and returns the total Fisher matrix for N bins
-
+    -----------------------------------------
+    Inputs:
     z_init : initial redshift
     z_final : final redshift
     N_bins : number of bins
@@ -733,7 +735,8 @@ def Full_Fisher(z_init, z_final, N_bins, sig_z, f_sky, N_gal_tot, z_0, a, b):
     #=================================================================================
     # Initialize fisher matrix
 
-    dim = 2*N_bins + 3
+    #dim = 2*N_bins + 3
+    dim = N_bins + 3
     #The total Fisher matrix has dimensions (2*N_bins +3 )*(2*N_bins + 3)
     
     Full_Fish = np.zeros([dim,dim])
@@ -754,15 +757,6 @@ def Full_Fisher(z_init, z_final, N_bins, sig_z, f_sky, N_gal_tot, z_0, a, b):
 
 
     return Full_Fish
-
-
-
-
-
-
-
-
-
 
 
 
