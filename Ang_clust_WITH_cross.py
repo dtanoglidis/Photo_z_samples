@@ -983,7 +983,7 @@ def Fisher_calculator(z_init, z_end, N_bins, f_sky, sig_z, N_gal_tot, z_0, a, b)
             
             #diagonal terms
             Fish[2+i_bin,2+i_bin] += sum(ls_fac*np.trace(C_l_inv_loc*C_l_z_b_loc*C_l_inv_loc*C_l_z_b_loc))
-            Fish[2 + N_bins + i_bin,2 + N_bins + i_bin] += sum(ls_fac*np.trace(C_l_inv_loc*C_l_bias_loc*C_l_inv_loc*C_l_bias_loc))
+            Fish[2 + N_bins + i_bin,2 + N_bins + i_bin] += sum(ls_fac*np.trace(C_l_inv_loc*C_l_bias_loc*C_l_inv_loc*C_l_bias_loc)) + 1.0e36
             
             #Non-diagonal terms
             

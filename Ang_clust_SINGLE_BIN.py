@@ -394,7 +394,7 @@ def breaking_ell(ells, search_array):
                 ell_break = 0.5*(ells[s]+ells[s-1])
                 break
     else:
-        for s in ragne(n_size):
+        for s in range(n_size):
             if (np.sign(search_array[s])<=0.0):
                 ell_break = 0.5*(ells[s]+ells[s-1])
                 break       
@@ -579,7 +579,7 @@ def Fish_single_bin(z_i, z_f, sig_z, z_bias, bias, f_sky, N_gal):
     # Diagonal terms first
     Fish[0,0] = sum(inv_sigma*(dC_ldOm**2.0))
     Fish[1,1] = sum(inv_sigma*(dC_ldsig8**2.0))
-    Fish[2,2] = sum(inv_sigma*(dC_ldbias**2.0))
+    Fish[2,2] = sum(inv_sigma*(dC_ldbias**2.0)) + 1.0e35
     Fish[3,3] = sum(inv_sigma*(dC_ldz_bias**2.0))
     Fish[4,4] = sum(inv_sigma*(dC_ldsig_z**2.0))
     
