@@ -386,11 +386,13 @@ def breaking_ell(ells, search_array):
 # =========================================================================================
 # Calculation of the Fisher Matrix in a single bin
 
-def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
+def Fish_single_bin(N_bins, i_bin, z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
     """
     Calculates and returns the Fisher matrix for a single bin
     ------------------------------
     Inputs:
+    N_bins : total number of bins
+    i_bin : the order (number of bin we use in this case) - starts from One (1 <= i_bin <= N_bins)
     z_mean : mean redshift of the bin
     bias : bias - function or constant
     n_z : redshift distribution of the bin
@@ -526,23 +528,90 @@ def Fish_single_bin(z_mean, bias, n_z, dn_dDz, f_sky, N_gal):
     #===============================================================================
     #===============================================================================
     # Calculation of the elements of the Fisher matrix
-    
-    Fish = np.zeros([3,3])
-    # 0 = matter, 1 = sigma_8, 2 = bias, 3 = z_bias, 4 = sigma_z
+
+    # Dimension of the sinlge bin Fisher matrix.
+    dim = N_bins + 2
+
+    # The Fisher matrix at each bin has dimensions (N_bins + 2)*(N_bins + 2) 
+    Fish = np.zeros([dim,dim]) 
+    # 0 = matter, 1 = sigma_8, 1 + i_bin = photo_z bias in the i-th bin
     
     # Diagonal terms first
     Fish[0,0] = sum(inv_sigma*(dC_ldOm**2.0))
     Fish[1,1] = sum(inv_sigma*(dC_ldsig8**2.0))
-    Fish[2,2] = sum(inv_sigma*(dC_ldShift**2.0))
+    Fish[1+i_bin,1+i_bin] = sum(inv_sigma*(dC_ldShift**2.0))
     
     
     # Non-diagonal terms
     Fish[0,1] = Fish[1,0] = sum(inv_sigma*dC_ldOm*dC_ldsig8)
-    Fish[0,2] = Fish[2,0] = sum(inv_sigma*dC_ldOm*dC_ldShift)
+    Fish[0,1+i_bin] = Fish[1+i_bin,0] = sum(inv_sigma*dC_ldOm*dC_ldShift)
     
-    Fish[1,2] = Fish[2,1] = sum(inv_sigma*dC_ldsig8*dC_ldShift)
+    Fish[1,1+i_bin] = Fish[1+i_bin,1] = sum(inv_sigma*dC_ldsig8*dC_ldShift)
     
     return Fish   
+
+# ===================================================================================
+# ===================================================================================
+# Now calculate the full Fisher matrix in a number of bins N_bins
+
+from scipy.interpolate import UnivariateSpline as spl
+
+def Full_Fisher(N_bins, bin_dists, f_sky, type_sam):
+    """
+    Calculates the Full Fisher matrix for N bins
+    --------------------------------------------
+    Inputs:
+
+
+    --------------------------------------------
+    Outputs:
+
+    """
+    nz = 10000 #number of steps to use for the radial/redshift integration
+    zarray = np.linspace(0,4.0,nz)
+    z = zarray[1:-1]
+
+    # Dimension of the Fisher matrix
+    dim = N_bins + 2 
+
+    # The total Fihser matrix has dimensions (N_bins + 2)*(N_bins + 2)
+    Full_Fish = np.zeros([dim,dim])
+
+    for i in range(N_bins):
+        i_bin = i + 1 #the bin number - starting from one
+
+        # Redshift distribution in the bin
+        bin_z = bin_dists[i]
+
+        mean_z = np.mean(bin_z)
+        bias = 1.0 + mean_z
+
+        if (type_sam==0):
+            N_gal = 32.0*np.float(len(bin_z))
+        else:
+            N_gal = np.float(len(bin_z))
+
+        # ==========================================================
+        # ==========================================================
+        # take a histogram for the redshift distribution 
+        y_like, x_like = np.histogram(bin_z, bins=200, density=True) 
+        x_like = x_like[:-1]
+            
+        bin_sp = spl(x_like,y_like,s=0.0, ext=1)     #Interpolate 
+    
+        Dz = 0.0 # This can change 
+        n_z = bin_sp(z - Dz)   # this is the normalized n(z) in the range (0.0,4.0)
+    
+        # Calculate the derivative now 
+        der_spl = bin_sp.derivative()
+        dn_dDz = -der_spl(z)
+
+    
+        Full_Fish += Fish_single_bin(N_bins, i_bin, mean_z, bias, n_z, dn_dDz, f_sky, N_gal)
+
+    return Full_Fish
+
+
 
 
 
