@@ -58,7 +58,7 @@ def marginalize(Fisher):
 # =============================== PRIOR ADDING FUNCTIONS ===================================#
 # Define here some functions that add photo-z priors to the Free Fisher matrix =============#
 
-def priors_1(Fisher, sig_z_prior):
+def priors_1(Fisher, N_bins, sig_z_prior):
     """
     Function that  gets as input a Fisher matrix of size 2N_bins + 3, where N_bins is the 
     nubmer of redshift bins, and adds priors on the photo-z parameters \sigma_{z,0} and
@@ -83,8 +83,9 @@ def priors_1(Fisher, sig_z_prior):
 
     # Calculate the number of bins
 
-    N_bin_size = int((len(Fisher) - 3.0)/2.0) # Number of redshift bins - Integer
+    #N_bin_size = int((len(Fisher) - 3.0)/2.0) # Number of redshift bins - Integer
 
+    N_bin_size = N_bins
     # Inverse square of the prior
 
     inv_square_prior = 1.0/(sig_z_prior**2.0)
@@ -104,7 +105,7 @@ def priors_1(Fisher, sig_z_prior):
 
 # ========================================================================================#
 
-def priors_2(Fisher, alpha_s, sig_z):
+def priors_2(Fisher, N_bins, alpha_s, sig_z):
     """
     Function that  gets as input a Fisher matrix of size 2N_bins + 3, where N_bins is the 
     nubmer of redshift bins, and adds priors on the photo-z parameters \sigma_{z,0} and
@@ -133,7 +134,8 @@ def priors_2(Fisher, alpha_s, sig_z):
 
     # Calculate the number of bins
 
-    N_bin_size = int((len(Fisher) - 3.0)/2.0) # Number of redshift bins - Integer
+    #N_bin_size = int((len(Fisher) - 3.0)/2.0) # Number of redshift bins - Integer
+    N_bin_size = N_bins
 
     # Inverse square of the prior
 
@@ -153,6 +155,62 @@ def priors_2(Fisher, alpha_s, sig_z):
         Fish_w_pr[2+i_bin,2+i_bin] = Fish_w_pr[2+i_bin,2+i_bin] + inv_square_prior 
 
     return Fish_w_pr 
+
+
+
+def priors_3(Fisher, N_bins, alpha_s, sig_z):
+    """
+        Function that  gets as input a Fisher matrix of size 2N_bins + 3, where N_bins is the
+        nubmer of redshift bins, and adds priors on the photo-z parameters \sigma_{z,0} and
+        z_b.
+        
+        In this second case, we add a constant prior of the form alpha_s*sig_{z,0} at each redshift
+        bin. So, alpha_s = sigma(sigma_{z,0})/sigma_{z,0}
+        
+        # --------------------------------------------------------------------------------------
+        Inputs:
+        
+        Fisher : (2N_bins + 3)*(2N_bins +3) Fisher matrix. Contains two cosmological parameters,
+        one photo-z scatter parameter, N_bins photo-z bias parameters and N_bins galaxy bias parameters
+        
+        alpha_s = sigma(sigma_{z,0})/sigma_{z,0}
+        
+        sig_z : photo-z error scatter
+        
+        This is constant for all bins and for the two types of photo-z parameters
+        ----------------------------------------------------------------
+        Returns:
+        
+        The Fisher matrix, after adding the priors
+        
+        """
+    
+    # Calculate the number of bins
+    
+    #N_bin_size = int((len(Fisher) - 3.0)/2.0) # Number of redshift bins - Integer
+    N_bin_size = N_bins
+    
+    # Inverse square of the prior
+    
+    sig_z_prior = alpha_s*sig_z
+    
+    inv_square_prior = 1.0/(sig_z_prior**2.0)
+    
+    # Add the priors now
+    
+    Fish_w_pr = np.copy(Fisher)
+    
+    
+    Fish_w_pr[2,2] = Fish_w_pr[2,2] + 1e36
+    
+    for j in range(N_bin_size):
+        i_bin = j + 1
+        
+        Fish_w_pr[2+i_bin,2+i_bin] = Fish_w_pr[2+i_bin,2+i_bin] + inv_square_prior 
+    
+    return Fish_w_pr 
+
+
 
 
 # =========================================================================================#
