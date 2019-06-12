@@ -68,9 +68,9 @@
 % The list of authors, and the short list which is used in the headers.
 % If you need two or more lines of authors, add an extra line using \newauthor
 \author[D. Tanoglidis et al.]{
-,$^{1,2}$\thanks{E-mail: dtanoglidis@uchicago.edu}
-$^{1,2}$
-$^{1,2,3}$
+Dimitrios Tanoglidis,$^{1,2}$\thanks{E-mail: dtanoglidis@uchicago.edu}
+Chihway Chang,$^{1,2}$
+and Joshua Frieman$^{1,2,3}$
 \\
 % List of institutions
 $^{1}$Department of Astronomy and Astrophysics, University of Chicago, Chicago, IL 60637, USA \\
@@ -92,7 +92,7 @@ $^{3}$Fermi National Accelerator Laboratory, P. O. Box 500, Batavia, IL 60510, U
 
 % Abstract of the paper
 \begin{abstract}
-Abstract goes here
+We systematically study the trade-offs between redshift estimation accuracy and size (number of galaxies) of samples used for galaxy clustering measurements in photometric surveys. We use a simple Gaussian model for redshift uncertainties and a common underlying redshift distributions to describe a range of different samples. As a primary example of a photometric survey we use the planned third year analysis of the Dark Energy Survey (DES). In the first year of DES  galaxy clustering analysis, a small sample, with accurate photometric redshifts (photo-zs) was used. Here we explore potential benefits from extending this sample in future analysis and try to locate optimal regions in the redshift accuracy-sample size space. We use the Fisher formalism to forecast cosmological constraints from angular galaxy clustering in five redshift bins in the range $z = 0.2 - 0.95$. When we consider the information from the auto-correlation spectra only, we find marginal gains from using larger samples with less accurate photo-zs: cosmological constraints, quantified through the figure of merit (FoM) of the cosmological parameters $\Omega_m - \sigma_8$, improve by a factor of $\sim 1.2  - 1.5$ for reasonable priors on the photo-z parameters. When we include the cross correlation between bins, however, we find that it is highly beneficial to use larger, less accurate samples, since we get an increase of the forecasted FoM of the order of $\sim 10-20$. Considering clustering using a variable number of bins in the same redshift range, we get the tightest constraints when the bin width is similar to the photo-z scatter, $\delta z \sim \sigma_{z,0}$. At the optimal binning, we recover that samples with more accurate photo-zs give better constraints, as expected since they intrinsically carry more information. The results presented here can be used to guide sample selection for clustering analyses in ongoing and future photometric surveys.
 \end{abstract}
 
 % Select between one and six entries from the list of approved keywords.
@@ -109,31 +109,31 @@ cosmology: observations -- large-scale structure of Universe -- methods: data an
 \label{sec: Intro}
 
 
-The large-scale structure (LSS) of the Universe carries rich cosmological information. Combined with early Universe observations of the cosmic microwave background (CMB) and expansion measurements using supernovae, galaxy surveys have significantly contributed to the establishment of the highly successful standard cosmological model. In this model the energy density content of the Universe is dominated by two main constituents: dark energy in the form of a cosmological constant ($\Lambda$) and Cold Dark Matter (CDM). Current and future cosmological surveys will try to test the $\Lambda$CDM paradigm to high accuracy and search for new physics using a number of different probes.
+The large-scale structure (LSS) of the Universe carries rich cosmological information (e.g., \citealt{Dodelson2013}). Combined with early Universe observations of the cosmic microwave background (CMB) and expansion measurements using supernovae, galaxy surveys have significantly contributed to the establishment of the highly successful standard cosmological model. In this model the energy density content of the Universe is dominated by two main constituents: dark energy in the form of a cosmological constant ($\Lambda$) \citep{Frieman2008,Amendola2010}  and Cold Dark Matter (CDM) (e.g., \citealt{Bertone2005,Bertone2016}). Current and future cosmological surveys will try to test the $\Lambda$CDM paradigm to high accuracy and search for new physics using a number of different probes.
 
-One of the most important ways the information contained in the LSS can be extracted is by studying the statistical properties of the distribution of galaxies, which are assumed to be (biased) tracers of the underlying matter field. The most widely used statistic is the 2-point galaxy correlation function in real space or, equivalently, its Fourier-space analogue, the power spectrum.
+One of the most important ways the information contained in the LSS can be extracted is by studying the statistical properties of the distribution of galaxies, which are assumed to be (biased) tracers of the underlying matter field. The most widely used statistic is the 2-point galaxy correlation function in real space or, equivalently, its Fourier-space analogue, the power spectrum (e.g., \citealt{Baugh2000}).
 
 Measuring the clustering of galaxies in three dimensional space, maintaining full radial information, requires the precise knowledge of their redshifts. While spectroscopic surveys can provide such accurate redshifts,  obtaining spectra is time consuming. Thus, only a relatively small number of galaxy redshifts  can be accurately measured that way. This results in a noisy reconstruction of the galaxy field which in turn leads to a degradation of its statistical power. 
 
-Photometric imaging surveys, on the other hand, provide a less accurate estimatation of the redshifts of galaxies (photometric redshifts or photo-z's) from the color information obtained through multi-band photometry using a number of filters. Since this method is faster, it allows one to estimate the redshifts of a significantly larger number of galaxies (at least an order of magnitude more), at the expense of loosing most of the radial information. For that reason, in photometric surveys, instead of the three dimensional galaxy distribution, one usually considers its projection in a number of redshift bins and measures the angular 2-point correlation function or the angular power spectrum.  
+Photometric imaging surveys, on the other hand, provide a less accurate estimatation of the redshifts of galaxies (photometric redshifts or photo-zs) from the color information obtained through multi-band photometry using a number of filters (e.g., \citealt{Salvato2019}). Since this method is faster, it allows one to estimate the redshifts of a significantly larger number of galaxies (at least an order of magnitude more), at the expense of losing most of the radial information \citep{Benitez2009,Asorey2012,Chaves2018}. For that reason, in photometric surveys, instead of the three dimensional galaxy distribution, one usually considers its projection in a number of redshift bins and measures the angular 2-point correlation function or the angular power spectrum (e.g., \citealt{Crocce2011, Asorey2016, Budav, Elvin_Poole2018}).  
 
-One important aspect that affects the constraints on cosmology from clustering measurements in photometric surveys is the particular galaxy sample used: Briefly, the number of galaxies in a particular sample determines the uncertainty in the measurement of the angular power spectrum, with sparser samples leading to higher noise terms. The accuracy of the assigned point estimate of the photo-z (the discrepancy detween the assigned   photo-z and the spectroscopic redshift) and the uncertainty in our knowledge of the overall photo-z probability function  both affect the cosmological constraints; as we will discuss in detail, less accurate photo-zs lower the amplitude of the power spectrum, while uncertainties in the photo-z parameters translate into uncertainties on the estimated cosmological parameters.
+One important aspect that affects the constraints on cosmology from clustering measurements in photometric surveys is the particular galaxy sample used: Briefly, the number of galaxies in a particular sample determines the uncertainty in the measurement of the angular power spectrum, with sparser samples leading to higher noise terms. The accuracy of the assigned point estimate of the photo-z (the discrepancy between the assigned   photo-z and the spectroscopic redshift) and the uncertainty in our knowledge of the overall photo-z probability function  both affect the cosmological constraints; as we will discuss in detail, less accurate photo-zs lower the amplitude of the power spectrum, while uncertainties in the photo-z parameters translate into uncertainties on the estimated cosmological parameters.
 
-A common choice for the galaxy sample is a sample of Luminous Red Galaxies (LRGs).  LRGs are characterized by a uniform spectral energy distribution (SED)  with a sharp break at 4000{\AA} (rest frame) \citep{Eisenstein2001}. This feature allows the selection of this sub-sample of galaxies from the general population, as well as the estimation of their redshift (as it moves through the photometric filters) with high accuracy \citep{Padmanabhan2005, Rozo2016}. The benefit of using such a sample is that it provides very accurate and well-characterized photo-z's (probability distributions very close to Gaussian, with scatter of the order of $\sigma_{z}/(1 + z) \sim 0.017$). However, LRGs constitute only a small sub-sample of the total number of galaxies available in a photometric survey. Thus, similarly to the case of spectroscopic surveys, a relatively high noise term arises that affects the amount of cosmological information that can be recovered.
+A common choice is to use a sample of Luminous Red Galaxies (LRGs).  LRGs are characterized by a uniform spectral energy distribution (SED)  with a sharp break at 4000{\AA} (rest frame) \citep{Eisenstein2001}. This feature allows the selection of this sub-sample of galaxies from the general population, as well as the estimation of their redshift (as it moves through the photometric filters) with high accuracy \citep{Padmanabhan2005, Rozo2016}. The benefit of using such a sample is that it provides very accurate and well-characterized photo-zs (probability distributions very close to Gaussian, with scatter of the order of $\sigma_{z}/(1 + z) \sim 0.017$). However, LRGs constitute only a small sub-sample of the total number of galaxies available in a photometric survey. Thus, similarly to the case of spectroscopic surveys, a relatively high noise term arises that affects the amount of cosmological information that can be recovered.
 
-Another choice is to select all galaxies up to a limiting magnitude, where the survey provides a homogeneous coverage in depth. Flux limited samples have been used e.g.,  in \citealt{Crocce2016,Balaguera2018}. Such a sample will be dominated by a population of blue galaxies, which are more populous, can be observed to much higher redshifts, but the accuracy in the determination of their photo-zs is much lower (scatter of the order of $\sigma_{z}/(1 + z) \sim 0.08-0.1$ and  probability distributions not very-well characterized/ easy to be calibrated).  Another choice is to select a sample that includes, but is not limited to, red galaxies, as a compromise between having small redshift errors and high number density of galaxies. Such a selection was performed in \citep{Crocce2017} , resulting in an appropriate sample for measurements of the Baryon Acoustic Oscillations (BAO) feature in high redshifts.
+Another choice is to select all galaxies up to a limiting magnitude, where the survey provides a homogeneous coverage in depth. Flux limited samples have been used e.g.,  in \citealt{Crocce2016,Balaguera2018}. Such a sample will be dominated by a population of blue galaxies, which are more populous, can be observed to much higher redshifts, but the accuracy in the determination of their photo-zs is much lower (scatter of the order of $\sigma_{z}/(1 + z) \sim 0.07-0.1$ and  probability distributions not very-well characterized/ easy to be calibrated).  Another choice is to select a sample that includes, but is not limited to, red galaxies, as a compromise between having small redshift errors and high number density of galaxies. Such a selection was performed in \citep{Crocce2019} , resulting in a sample that is appropriate for measurements of the Baryon Acoustic Oscillations (BAO) feature in high redshifts.
 
-Galaxy surveys have just started giving cosmological constraints comparable in precision to those obtained from CMB measurements. To enable the full exploitation of future clustering analyses and extract the maximum cosmological information, the galaxy sample selection process has to be optimized.  
+Galaxy surveys have just started giving cosmological constraints comparable in precision to those obtained from CMB measurements \citep{DES1,Joudaki2018}. To enable the full exploitation of future clustering analyses and extract the maximum cosmological information, the galaxy sample selection process has to be optimized.  
 
-Such an attempt of optimized sample selection is currently under investigation for the third year (Y3) analysis of the Dark Energy Survey (DES), a wide-field photometric survey. The main focus is to expand the sample of LRGs used in the first year (Y1) analysis of the DES data. Briefly, the procedure consists of applying different different flux limits in pre-defined redshift bins, obtain samples of different size, photometric redshift errors and biases and perform a Fisher forecast for each case in an attempt to  locate the sample that gives the best constraints.
+Such an attempt of optimized sample selection is currently under investigation for the third year (Y3) analysis of the Dark Energy Survey (DES)\footnote{\url{https://www.darkenergysurvey.org/}} \citep{DES2005}, a wide-field photometric survey. The main focus is to expand the sample of LRGs used in the first year (Y1) analysis of the DES data. Briefly, the procedure consists of applying different different flux limits in pre-defined redshift bins, obtain samples of different size, photometric redshift errors and biases and perform a Fisher forecast for each case in an attempt to  locate the sample that gives the best constraints.
  
 This approach is tied to the real survey data and takes into account all potential systematics and the uncertainties on them in a realistic way (for example, no need to approximate the distribution of photo-z errors as Gaussian) and the results can be immediately used when an optimal sample is located. However, being too tied to data, it is hard to explore the  whole parameter space (sample sizes bs photo-z errors).
 
-In this work we adopt an alternative and complementary approach to the same problem. By making the simplifying assumptions that all samples follow a common underlying redshift distribution and that the photo-z uncertainties can be described as  Gaussian we can explore a wide range of sample choices (with different sizes and photo-z errors): we can easily compare the cases of using just the auto-correlation spectra (as in the DES Y1 analysis) and including the cross-spectra as well; we can explore the significance the prior information about the photo-z parameters has on the obtained cosmological constraints; investigate  how the choice of bin widths affects the results. Thus, we are able to locate  promising regions in the parameter space that can serve as guides to more detailed, tied-to-data studies. 
+In this work we adopt an alternative and complementary approach to the same problem. By making the simplifying assumptions that all samples follow a common underlying redshift distribution and that the photo-z uncertainties can be described as  Gaussian we can explore a wide range of sample choices (with different sizes and photo-z errors): we can easily compare the cases of using just the auto-correlation spectra (as in the DES Y1 analysis, \citealt{DES1}) and including the cross-spectra as well; we can explore the significance the prior information about the photo-z parameters has on the obtained cosmological constraints; investigate  how the choice of bin widths affects the results. Thus, we are able to locate  promising regions in the parameter space that can serve as guides to more detailed, tied-to-data studies. 
 
 To assess the constraining power on cosmology of different samples, binning schemes etc, we use the Fisher formalism to forecast the joint constraints on the set of parameters $\Omega_m - \sigma_8$,  since these parameters can be best constrained from a photometric survey \citep{DES1}. We design the setup of this paper to approximately match the Y3 DES data characteristics; however our approach is quite general and thus our conclusions can be used to guide the sample selection for clustering measurements in future surveys as well. 
 
-The paper is organized as follows:  in section \ref{sec: formalism} we review the formalism of  angular power spectra and cosmological forecasts we are going to use. In section...
+The paper is organized as follows:  in section \ref{sec: formalism} we review the formalism of  angular power spectra and cosmological forecasts we are going to use. In section \ref{sec: survey_samples} we show examples of samples from DES data and how to select them. In \ref{sec: Samples_Constraints} we show how different samples give different cosmological constraints and we develop a simple model to describe a wide range of samples that we subsequently use in section \ref{sec: Baseline} to forecast cosmological constraints using only auto-correlation spectra and in \ref{sec: Cross_correlations} using both auto- and cross-correlation spectra. Finally in section \ref{sec: Bin_size} we study the dependence of our results on the redshift bin size. We summarize and conclude in \ref{sec: Conclusions}.
 
 The fiducial cosmology adopted in this paper is flat $\Lambda$CDM with parameters (from DES Y1 + Planck + JLA + BAO \citep[TABLE II]{DES1}) $\Omega_m = 0.301, \,\,\sigma_8 = 0.798, \,\, \Omega_b = 0.0480, \,\, h = 0.682, \,\, n_s = 0.973$. 
 
@@ -182,7 +182,7 @@ F_{\mu \nu} \equiv - \left\langle\left. \frac{\partial^2 \log {\cal{L}}}{\partia
 \end{equation}
 where $\theta_{\mu,\nu}$ the parameters we want to constrain,  and $\mathbf{\theta_0}$ the fiducial values. Then, a lower bound for the error on the measurement of the parameter $\theta_\mu$ can be estimated as: $\sigma_\mu \equiv \sigma(\theta_\mu) \geq \sqrt{(\mathbf{F}^{-1})_{\mu \mu}}$ (Cram\'er-Rao bound).
 
-In the case where our data vector is consisted of the observed angular power spectra (including the cross correlations) it can be shown that it takes the form:
+In the case where our data vector is consisted of the observed angular power spectra (including the cross correlations) it can be shown that it takes the form (e.g., \citealt{Hu2004, Passaglia2017}):
 \begin{equation}
 F_{\mu \nu} = \frac{f_{\mbox{\scriptsize{sky}}}}{2} \sum_{\ell} (2\ell + 1)\mbox{Tr}\left[\mathbf{\hat{C}}_\ell^{-1} \frac{\partial \mathbf{\hat{C}}_{\ell}}{\partial \theta_\mu} \mathbf{\hat{C}}_\ell^{-1} \frac{\partial \mathbf{\hat{C}}_{\ell}}{\partial \theta_\nu} \right],
 \end{equation}
@@ -202,7 +202,7 @@ where:
 \sigma_{\ell,i} \equiv 
 \delta C_{\ell,i} = \sqrt{\frac{2}{f_{\mbox{\scriptsize{sky}}}(2\ell + 1)}}\left(C_\ell^{i} + \frac{1}{\bar{n}_g^i} \right).
 \end{equation}
-In the above $C_\ell^i \equiv C_\ell^{ii}$.  The first term in \eqref{eq: delta_C} is called the cosmic variance and the second is the shot noise. The outer sum is over the redshift bins. We consider the same minimum multipole for each bin, $\ell_{\mbox{\scriptsize{min}}} = 10$. The maximum $\ell$, corresponding to the minimum angular scale we consider for galaxy clustering measurements, is given by $\ell_{\mbox{\scriptsize{max,i}}} = k_{\mbox{\scriptsize{max}}}\chi(\bar{z})$, where $\bar{z}$ is the mean redshift of the bin. A common choice for the maximum  wavenumber, $k_{\mbox{\scriptsize{max}}}$ is to be $\sim 0.2 h$ Mpc$^{-1}$. This is a conservative choice, corresponding to a quasi-linear cutoff scale and thus does not require the modeling of non-linear scales. However, in DES the minimum scale considered for clustering measurements is $R_{\mbox{\scriptsize{clustering}}} = 8$ Mpc $h^{-1}$ \citep{Krause2017}, which translates into a maximum $k_{\mbox{\scriptsize{max}}} = 2\pi/R_{\mbox{\scriptsize{clustering}}} \simeq 0.79 $ Mpc $h^{-1}$. Here we will adopt a little bit more conservative choice,  $k_{\mbox{\scriptsize{max}}} = 0.6$ Mpc $h^{-1}$, corresponding to $R_{\mbox{\scriptsize{clustering}}} \simeq 10$ Mpc $h^{-1}$, as in \citealt{Krause2017a}. 
+In the above $C_\ell^i \equiv C_\ell^{ii}$.  The first term in \eqref{eq: delta_C} is called the cosmic variance and the second is the shot noise. The outer sum is over the redshift bins. We consider the same minimum multipole for each bin, $\ell_{\mbox{\scriptsize{min}}} = 10$. The maximum $\ell$, corresponding to the minimum angular scale we consider for galaxy clustering measurements, is given by $\ell_{\mbox{\scriptsize{max,i}}} = k_{\mbox{\scriptsize{max}}}\chi(\bar{z})$, where $\bar{z}$ is the mean redshift of the bin. A common choice for the maximum  wavenumber, $k_{\mbox{\scriptsize{max}}}$ is to be $\sim 0.2 h$ Mpc$^{-1}$. This is a conservative choice, corresponding to a quasi-linear cutoff scale and thus does not require the modeling of non-linear scales. However, in DES the minimum scale considered for clustering measurements is $R_{\mbox{\scriptsize{clustering}}} = 8$ Mpc $h^{-1}$ \citep{Krause2017}, which translates into a maximum $k_{\mbox{\scriptsize{max}}} = 2\pi/R_{\mbox{\scriptsize{clustering}}} \simeq 0.79 $ Mpc$^{-1}$ $h$. Here we will adopt a little bit more conservative choice,  $k_{\mbox{\scriptsize{max}}} = 0.6$ Mpc$^{-1}$ $h$, corresponding to $R_{\mbox{\scriptsize{clustering}}} \simeq 10$ Mpc $h^{-1}$, as in \citealt{Krause2017a}. 
 
 We can easily include Gaussian priors on the Fisher matrix. We simply add a prior matrix:
 \begin{equation}
@@ -215,12 +215,12 @@ F^P_{\mu \nu} = \delta_{\mu \nu}\frac{1}{(\sigma^P_{\mu})^2},
 \end{equation}
 where $\sigma^P_{\mu}$ the prion error on the parameter $\theta_\mu$.
 
-A commonly used metric to measure the ability of survey/sample with given specifications to constrain cosmology is the figure of merit (FoM). For a subset (of the total number) of cosmological parameters $\mathbf{\theta}$ we want to constrain, this is defined as:
+A commonly used metric to measure the ability of survey/sample with given specifications to constrain cosmology is the figure of merit (FoM) see e.g., \citealt{Albrecht2006} . For a subset (of the total number) of cosmological parameters $\mathbf{\theta}$ we want to constrain, this is defined as:
 \begin{equation}
 \label{eq: FoM_1}
 \mbox{FoM}_\mathbf{\theta} \equiv \frac{1}{ \sqrt{\det\left[ (\mathbf{F}^{-1})_\mathbf{\theta}\right]}},
 \end{equation}
-where the operation $(\mathbf{F}^{-1})_\mathbf{\theta}$ means that we first invert the total Fisher matrix $\mathbf{F}$ and then wee keep only the rows and columns that refer to the parameters $\theta$.
+where the operation $(\mathbf{F}^{-1})_\mathbf{\theta}$ means that we first invert the total Fisher matrix $\mathbf{F}$ and then we keep only the rows and columns that refer to the parameters $\theta$.
 In the case where this subset of cosmological parameters coincides with the set of cosmological parameters we leave free to vary, the above reduces to:
 \begin{equation}
 \mbox{FoM} = \sqrt{\det{\mathbf{F}}}
@@ -242,7 +242,7 @@ W^i(z) =b(z) \frac{\frac{dN_g}{dz}F^i(z)}{\int_0^\infty \frac{dN_g}{dz'}F^i(z') 
 \end{equation}
 where $dN_g^i/dz = \frac{\frac{dN_g}{dz}F^i(z)}{\int_0^\infty \frac{dN_g}{dz'}F^i(z') \,dz'} $ is the redshift distribution in the $i$-th bin.
 $F^i(z)$ a window function that gives the probability to include a galaxy in that bin.
-For a spectroscopic survey $F^i(z)$ is a top-hat function with limits the limits of each bin. For gaussian photometric uncertainties, the window function becomes:
+For a spectroscopic survey, $F^i(z)$ is a top-hat function with limits the limits of each bin. For gaussian photometric uncertainties, the window function becomes:
 \begin{eqnarray}
 \label{eq: F_i}
 F^i(z)&=&\int_{z^i_{\mbox{\scriptsize{min}}}}^{z^i_{\mbox{\scriptsize{max}}}} dz_{\mbox{\scriptsize{ph}}} p^i(z_{\mbox{\scriptsize{ph}}}|z)  \\
@@ -255,11 +255,11 @@ x^i_{\mbox{\scriptsize{min/max}}} \equiv \left(z - z^i_{\mbox{\scriptsize{min/ma
 and
 $z^i_{\mbox{\scriptsize{min/max}}}$ are the limits of the  $i$-th bin.
 
-If we consider $m$ redshift bins, which  contain $N_{\mbox{\scriptsize{g}}}$ galaxies in total, the number of galaxies, $N_{\mbox{\scriptsize{g}}}^i$, in the $i$-th redshit bin is given by:
+If we consider $m$ redshift bins, which  contain $N_{\mbox{\scriptsize{g}}}$ galaxies in total, the number of galaxies, $N_{\mbox{\scriptsize{g}}}^i$, in the $i$-th redshift bin is given by:
 
 \begin{equation}
 \label{eq: gal_in_bin}
-N_{\mbox{\scriptsize{g}}}^i = N_{\mbox{\scriptsize{g}}} \frac{\int_0^\infty \frac{dn}{dz}F^i(z) \,dz}{{\sum_{j=1}^m} \int_0^\infty \frac{dn}{dz}F^j(z) \,dz}.
+N_{\mbox{\scriptsize{g}}}^i = N_{\mbox{\scriptsize{g}}} \frac{\int_0^\infty \frac{dN_{\mbox{\scriptsize{g}}} }{dz}F^i(z) \,dz}{{\sum_{j=1}^m} \int_0^\infty \frac{dN_{\mbox{\scriptsize{g}}} }{dz}F^j(z) \,dz}.
 \end{equation}
 
 
@@ -273,11 +273,11 @@ In this section we describe the Dark Energy Survey, the sample selection procedu
 \subsection{The Dark Energy Survey}
 
 
-We consider the Dark Energy Survey (DES) as a typical example of a photometric galaxy survey. DES is a  survey that aims to cover $\sim 5000$  deg$^2$. of the southern sky in five photometric filters, $grizY$, to a depth of $i \sim 24$ over a five year observational program using the 570-megapixel Dark Energy Camera (DECam) on the 4m Blanco Telescope at the Cerro Tololo Inter-American Observatory (CTIO) in Chile.
+We consider the Dark Energy Survey (DES) as a typical example of a photometric galaxy survey. DES is a  survey that aims to cover $\sim 5000$  deg$^2$. of the southern sky in five photometric filters, $grizY$, to a depth of $i \sim 24$ over a five year observational program using the 570-megapixel Dark Energy Camera (DECam) on the 4m Blanco Telescope at the Cerro Tololo Inter-American Observatory (CTIO) in Chile \citep{Flauger2015}.
 
 We use data from the first year (Y1) of DES observations, covering $\sim 1500$ deg$^2$, that are publicly available at  \url{https://www.darkenergysurvey.org/the-des-project/data-access/}. We use these data to estimate the photo-z uncertainties, redshift distributions and angular number densities of the samples; to get the sizes of the samples, we scale up to the expected footprint of $5000$  deg$^2$. in the third year (Y3) analysis.
 
-The dataset used has been processed and calibrated by the DES Data Managment system (DESDM) and finally curated, optimized and complemented in the Gold catalog (`Y3GOLD'). ``Bad" regions information information is propagated to the 'object' level by using the \texttt{flags{$\_$}badregion} column in the catalogue. Finally, individual objects identified as problematic are flagged as that using the \texttt{flags{$\_$}gold} column. To avoid imaging artifacts and bad regions we perform the cuts: \texttt{flags{$\_$}badregion < 4} and \texttt{flags{$\_$}gold = 0}.
+The dataset used has been processed and calibrated by the DES Data Managment system (DESDM) \citep{Sevilla2011} and finally curated, optimized and complemented in the Gold catalog (`Y1GOLD', \citealt{Drlica2018}). ``Bad" regions information information is propagated to the 'object' level by using the \texttt{flags{$\_$}badregion} column in the catalogue. Finally, individual objects identified as problematic are flagged as that using the \texttt{flags{$\_$}gold} column. To avoid imaging artifacts and bad regions we perform the cuts: \texttt{flags{$\_$}badregion < 4} and \texttt{flags{$\_$}gold = 0}.
 
 When refering to magnitudes, we use \texttt{SExtractor}'s \citep{Bertin1996}  \texttt{MAG{$\_$}AUTO} quantities. We use photometric redshifts obtained with a Multi-Object Fitting (MOF) photometry \citep[section 6.3]{Drlica2018} and the Bayesian Photometric Redshifts (BPZ) algorithm \citep{Benitez}, a template fitting method that assigns a photo-z probability distribution function to each galaxy.
 
@@ -301,7 +301,7 @@ We focus on three galaxy samples: a sample of LRGs (redMaGiC), a flux limited sa
 
 The galaxy sample used for clustering measurements in the first year (Y1) analyses of DES was a sub-sample of the DESY1 catalog, selected using  the redMaGiC algorithm \citep{Rozo2016}. The redMaGiC algorithm selects Luminous Red Galaxies such as the redshift uncertainties are minimal ($\sigma_z/(1+z) <0.02$).  It selects galaxies above some luminosity threshold based on how well they fit a red sequence template, generated by the training of the redMaPPer cluster finder. The algorithm  produces for each galaxy a mean redshift prediction $z_{\mbox{\scriptsize{RM}}}$  and an uncertainty $\sigma_z$ which is assumed to be Gaussian.
 
-RedMaGiC computes color-cuts necessary to produce a luminosity-thresholded sample of constant co-moving density. Higher luminosity thresholds require a lower density for good performance. The sample we consider here is a combination of three redMaGiC galaxy samples, each of them defined to be complete down to a given luminosity threshold $L_{\mbox{\scriptsize{min}}}$, referred to as the high-density, high-luminosity and higher-luminosity samples. The corresponding luminosity thresholds and comoving densities for these samples are, respectively, $L_{\mbox{\scriptsize{min}}} =0.5L_*$, $L_*$ and $1.5L_*$, and $\bar{n} =10^{-3}, \,4 \times 10^{-4}$, and $10^{-4}$ galaxies$/(h^{-1} \mbox{Mpc})^3$. 
+RedMaGiC computes color-cuts necessary to produce a luminosity-thresholded sample of constant co-moving density. Higher luminosity thresholds require a lower density for good performance. The sample we consider here is a combination of three redMaGiC galaxy samples, each of them defined to be complete down to a given luminosity threshold $L_{\mbox{\scriptsize{min}}}$, referred to as the high-density, high-luminosity and higher-luminosity samples. The corresponding luminosity thresholds and comoving densities for these samples are, respectively, $L_{\mbox{\scriptsize{min}}} =0.5L_*$, $L_*$ and $1.5L_*$, and $\bar{n} =10^{-3}, \,4 \times 10^{-4}$, and $10^{-4}$ galaxies$/(h^{-1} \mbox{Mpc})^3$ \citep{Elvin_Poole2018}.
 
 Furthermore, redMaGiC samples have been produced with two different photometric reduction techniques, \texttt{MAG{$\_$}AUTO} and Multi-object fitting photometry (\texttt{MOF}). We use \texttt{MAG{$\_$}AUTO}  for low redshifts and \texttt{MOF} for higher redshifts. 
 
@@ -314,9 +314,9 @@ We consider a flux limited sample defined by the magnitude cuts:
 \begin{equation}
 17.5 < i <  22
 \end{equation}
-The faint end is chosen to achieve a homogeneous depth, in other words in order to have a complete sample. We also remove the most luminous objects by applying the bright end cut.
+The faint end is chosen to achieve a homogeneous depth, in other words in order to have a complete sample \citep{Crocce2019}. We also remove the most luminous objects by applying the bright end cut.
 
-We also perform the following color cuts:
+We also perform the following color cuts \citep{Crocce2016}:
 \begin{eqnarray}
 -1  <  g - r  <  3\\
 -1  <  r- i  < 2.5\\
@@ -324,7 +324,7 @@ We also perform the following color cuts:
 \end{eqnarray}
 These cuts remove color outliers that are either unphysical or from special samples (Solar System objects, high redshift quasars).
 
-Furthermore to avoid contamination of the galaxy clustering signal we have to remove the stars from the sample. To achieve this we use the default star-galaxy classification scheme that is based on \texttt{SExtractor}'s $i-$band coadd magnitude \texttt{spread{$\_$}model{$\_$}i} and its associated error \texttt{spreaderr{$\_$}model{$\_$}i}. Following \citealt{Crocce2017},  we make our selection based on the combination:
+Furthermore to avoid contamination of the galaxy clustering signal we have to remove the stars from the sample. To achieve this we use the default star-galaxy classification scheme that is based on \texttt{SExtractor}'s $i-$band coadd magnitude \texttt{spread{$\_$}model{$\_$}i} and its associated error \texttt{spreaderr{$\_$}model{$\_$}i}. Following \citealt{Crocce2019},  we make our selection based on the combination:
 \begin{equation}
 \mbox{\texttt{spread{$\_$}model{$\_$}i} +(5.0/3.0)\texttt{spreaderr{$\_$}model{$\_$}i} > 0.007}, 
 \end{equation}
@@ -336,11 +336,11 @@ which produces a sample with purity $97\% - 98\%$. We do not perform any additio
 
 If we want to produce a sample that it is dominated by red galaxies (that result to more accurate photo-zs than blue galaxies) but without such strict criteria as those used to create the redMaGiC sample, we can impose further color cuts to our flux limited sample.
 
-As in \citep{Crocce2017}, we perform the following cuts:
+As in \citep{Crocce2019}, we perform the following cuts:
 \begin{equation}
 (i-z) +2.0(r-i) >1.7.
 \end{equation}
-This selects red galaxies at high redshifts ($ z \gtrsim 0.6$) and was used in  \citep{Crocce2017} to define a galaxy sample to be used for BAO measurements. As we will see, the produced galaxy sample lies between the redMaGiC and flux limited samples in terms of size and redshift uncertainty.
+This selects red galaxies at high redshifts ($ z \gtrsim 0.6$) and was used in  \citep{Crocce2019} to define a galaxy sample to be used for BAO measurements. As we will see, the produced galaxy sample lies between the redMaGiC and flux limited samples in terms of size and redshift uncertainty.
 
 
 
@@ -382,11 +382,11 @@ This selects red galaxies at high redshifts ($ z \gtrsim 0.6$) and was used in  
    \hline
    bins&   $n_{\mbox{\scriptsize{gal}}}$ (deg$^{-2}$)    & ${\sigma}_{z}/(1+z)$  \\
   \hline
-  0.15 -- 0.30 & -- & -- \\
-  0.30 -- 0.45 & 105.7  & 0.023 \\
-  0.45 -- 0.60 & 1106.3 & 0.040 \\
-  0.60 -- 0.75 & 1497.7 & 0.044 \\
-  0.75 -- 0.90 & 769.8 & 0.044 \\
+  0.20 -- 0.35 & -- & -- \\
+  0.35 -- 0.50 & 105.7  & 0.023 \\
+  0.50 -- 0.65 & 1106.3 & 0.040 \\
+  0.65 -- 0.80 & 1497.7 & 0.044 \\
+  0.80 -- 0.95 & 769.8 & 0.044 \\
   \hline
  \end{tabular}
 \end{table}
@@ -414,12 +414,13 @@ $\bullet$ For the color cuts-defined sample: $N_{\mbox{\scriptsize{g}}} \cong 1.
 \label{sec: Samples_Constraints}
 
 \subsection{Photometric redshift accuracy vs sample size}
+\label{subsec: Phot_red_acc}
 
 
 \begin{figure*}
 \centering
 \includegraphics[width=\textwidth]{C_l_delt_l.pdf} 
-\caption{\textit{Left panel:} The angular power spectrum, $C_\ell$, of a redMaGic-like (red)  and a flux limited-like (blue) sample, as defined in \ref{subsec: single bin}, in a $0.35 < z <0.50$ redshift bin. \textit{Central panel:} The error on the angular power spectrum, $\delta C_\ell$ for the same samples. \textit{Right panel:} The ratio $C_\ell/\delta C_\ell$ for the two samples, presents the signal-to-noise we have in the two cases. In all three panels we also show (brown dashed vertical line) the maximum $\ell$ cutoff scale we use for our forecasts in that bin,  calculated to be $\ell = 687$ (see discussion in subsec. \ref{subsec: forecasts}).}
+\caption{\textit{Left panel:} The angular power spectrum, $C_\ell$, of a redMaGic-like (red)  and a flux limited-like (blue) sample, as defined in \ref{subsec: Phot_red_acc}, in a $0.35 < z <0.50$ redshift bin. \textit{Central panel:} The error on the angular power spectrum, $\delta C_\ell$ for the same samples. \textit{Right panel:} The ratio $C_\ell/\delta C_\ell$ for the two samples, presents the signal-to-noise we have in the two cases. In all three panels we also show (brown dashed vertical line) the maximum $\ell$ cutoff scale we use for our forecasts in that bin,  calculated to be $\ell = 687$ (see discussion in subsec. \ref{subsec: forecasts}).}
 \label{fig: APS_and_Error}
 \end{figure*}
 
@@ -434,13 +435,13 @@ $\bullet$ For the color cuts-defined sample: $N_{\mbox{\scriptsize{g}}} \cong 1.
 
 In this subsection we would like to discuss how the sample size, the photometric redshift accuracy and the level of calibration of the photo-z parameters compete and affect the the information that can be extracted from a sample, and thus the cosmological constraints one can get by studying their clustering properties.
 
-Let us consider a single redshift bin of width $\delta z = 0.16$ in the range $0.35 < z < 0.50$ (the second of the five redshift bins presented in the previous section) and two specific samples:\\
-$\bullet$ One with  $N_{\mbox{\scriptsize{g}}}= 0.74 \times 10^6$ $\sigma_{z,0} = 0.017$. This choice corresponds to the  redMaGiC sample in that bin.\\
+Let us consider a single redshift bin of width $\delta z = 0.15$ in the range $0.35 < z < 0.50$ (the second of the five redshift bins presented in the previous section) and two specific samples:\\
+$\bullet$ One with  $N_{\mbox{\scriptsize{g}}}= 0.74 \times 10^6$, $\sigma_{z,0} = 0.017$. This choice corresponds to the  redMaGiC sample in that bin.\\
 $\bullet$ One with $N_{\mbox{\scriptsize{g}}}= 2.94 \times 10^7$ and $\sigma_{z,0} = 0.076$. This choice corresponds to the flux limited  sample.
 The sizes of the samples were obtained by scaling the number densities of the two samples in the second bin to the Y3 footprint of $5000$ sq. degrees.
 
 
-For both samples we assume a fiducial value for the photometric redshift bias $z_{\mbox{\scriptsize{b}}} = 0$. As we explained these two samples represent two limiting cases of possible samples selected in photometric surveys: the redMaGiC sample is a small sample with very accurate and secure photo-z's, while the flux-limited sample contains all galaxies up to a limiting magnitude and thus has worse photo-z uncertainties. 
+For both samples we assume a fiducial value for the photometric redshift bias $z_{\mbox{\scriptsize{b}}} = 0$. As we explained these two samples represent two limiting cases of possible samples selected in photometric surveys: the redMaGiC sample is a small sample with very accurate and secure photo-zs, while the flux-limited sample contains all galaxies up to a limiting magnitude and thus has worse photo-z uncertainties. 
 
  In Fig. \ref{fig: APS_and_Error} we plot the angular power spectrum, (defined in Eq. \ref{eq: APS}, for $i=j$), its error $\delta C_\ell$ (defined in Eq. \ref{eq: delta_C})(center) and their ratio (right) for the two samples defined above. 
 
@@ -448,11 +449,11 @@ The amplitude of the angular power spectrum in a fixed bin depends on the photom
 
 The error on the power spectrum, $\delta C_{\ell}$, has two contributions: cosmic variance, because of the limited  number of observable modes in low $\ell$, and the shot (Poisson) noise $1/ \bar{n}_{\mbox{\scriptsize{g}}}$ that  has to do with the fact that we use a discrete number of points (galaxies) to measure the statistical properties of the underlying field. The redMaGiC sample has better photo-zs, but it is also sparser and thus the shot noise is higher. For low $\ell$ the main source of noise is the cosmic variance and the difference in the two samples has to do with the difference in the $C_\ell$. For higher $\ell$ the shot noise dominates and we see that  the spread in the $\delta C_{\ell}$ for the two samples increases, with the redMaGiC-like sample having higher error, as expected.  
 
-The resulting signal to noise ratio, $C_\ell/\delta C_\ell$,  for the two samples can be seen in the right panel of Fig. \ref{fig: APS_and_Error}. For low $\ell$, as we have said the dominant source of noise is cosmic variance, and so the signal-to-noise ratio is constant for the two samples. In higher $\ell$ the signal-to-noise ratio of the flux limited-like sample is much higher than that of the  redMaGiC-like sample; the accuracy of the photo-z's is not enough to compensate for the high shot-noise of the sample. 
+The resulting signal to noise ratio, $C_\ell/\delta C_\ell$,  for the two samples can be seen in the right panel of Fig. \ref{fig: APS_and_Error}. For low $\ell$, as we have said the dominant source of noise is cosmic variance, and so the signal-to-noise ratio is constant for the two samples. In higher $\ell$ the signal-to-noise ratio of the flux limited-like sample is much higher than that of the  redMaGiC-like sample; the accuracy of the photo-zs is not enough to compensate for the high shot-noise of the sample. 
 
 So far we have assumed a perfect knowledge of the photometric uncertainties of the two samples. In practice though these uncertainties are known to a finite confidence level. We can characterize that by introducing uncertainties in the two photo-z parameters (scatter and bias) in the Gaussian model. 
 
-The calibration level and the resulting external priors on the photo-z parameters can significanly impact the cosmological information of a photometric galaxy sample. In Fig. \ref{fig: red_uncert_eff} we plot the angular power spectrum of the flux-limited like sample in the $0.35 < z < 0.50$ redshift bin. The solid blue assumes no redshift uncertainty and fiducial value for the power spectrum normalization $\sigma_8 = 0.798$.  The dashed blue line corresponds to a cosmology with $ \sim 10\%$ higher $\sigma_8 , \,\, \sigma_8 = 0.878$ and the dotted blue line corresponds to a value of $\sigma_8$ that is $\sim 10\%$ lower than the fiducial, $\sigma_8 = 0.718$. The red shaded region shows the effect of including uncertainties on the photo-z parameters of the order of $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = 0.013$. As we can see, the resulting uncertainty in the reconstruction of the angular power spectrum is comparable to the $\sim 10\%$ change of the parameter $\sigma_8$ across all scales. Thus an uncertainty in the photo-z parameters finally results  in an uncertainty on the value of the cosmological parameters we can measure from angular clustering.
+The calibration level and the resulting external priors on the photo-z parameters can significanly impact the cosmological information of a photometric galaxy sample. In Fig. \ref{fig: red_uncert_eff} we plot the angular power spectrum of the flux-limited like sample in the $0.35 < z < 0.50$ redshift bin. The solid blue assumes no redshift uncertainty and fiducial value for the power spectrum normalization $\sigma_8 = 0.798$.  The dashed blue line corresponds to a cosmology with $ \sim 10\%$ higher $\sigma_8 , \,\, \sigma_8 = 0.878$ and the dotted blue line corresponds to a value of $\sigma_8$ that is $\sim 10\%$ lower than the fiducial, $\sigma_8 = 0.718$. The red shaded region shows the effect of including uncertainties on the photo-z parameters of the order of $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = 0.013$. As we can see, the resulting uncertainty in the reconstruction of the angular power spectrum is comparable to the $\sim 10\%$ change of the parameter $\sigma_8$ across all scales. Thus an uncertainty in the photo-z parameters finally results  in an uncertainty on the value of the cosmological parameters we can measure from angular clustering (see also e.g., \citealt{Hearin2012}).
  
 
 
@@ -461,12 +462,12 @@ The calibration level and the resulting external priors on the photo-z parameter
 \subsection{Mapping data to model}
 
 
-We are going to use a simple model to describe different galaxy samples in order to investigate in a and unified way the trade-offs between photo-z uncertainties and sample sizes, explore the importance of cross-correlations, different bin widths etc. 
+We are going to use a simple model to describe different galaxy samples in order to investigate in a unified way the trade-offs between photo-z uncertainties and sample sizes, explore the importance of cross-correlations, different bin widths etc. 
 
 \begin{figure}
 \centering
 \includegraphics[width=1.0\columnwidth]{red_dist.pdf} 
-\caption{The overall, normalized, redshift distribution considered here (red line)  and the redshift distributions in the four bins (0.20-0.35, 0.35-0.50, 0.50-0.65, 0.65-0.80, 0.80-0.95), assuming a photometric redshift error $\sigma_{z,0}=0.04$.}
+\caption{The overall, normalized, redshift distribution considered here (red line)  and the redshift distributions in the five bins (0.20-0.35, 0.35-0.50, 0.50-0.65, 0.65-0.80, 0.80-0.95), assuming a photometric redshift error $\sigma_{z,0}=0.04$.}
 \label{fig: red_dist_mod}
 \end{figure}
 
@@ -479,7 +480,7 @@ Here we present the assumptions behind the model we are going to use in the foll
 \subfigure[]{\includegraphics[width=0.7\columnwidth]{Constr_from_theory1.pdf}}%\par 
 \subfigure[]{\includegraphics[width=0.7\columnwidth]{Constr_from_theory2.pdf}}%\par 
 %\end{multicols}
-\caption{ Forecasted constraints on the cosmological parameters $\Omega_{m,0} - \sigma_z$ using the redMaGiC (red),  flux limited (blue) and color cuts-defined (gray) samples, described in section \ref{subsec: Sample_Selection}. {\textit{Panel (a):}} Using the redshift distributions obtained from the DES Y1 data. {\textit{Panel (b):}} Using a Gaussian photo-z model with a common underlying redshift distribution for the three samples and keeping the photo-z scatter parameter fixed.  {\textit{Panel (c):}} As in panel (b), but having the photo-z scatter parameter free, with some priors (see text).}
+\caption{ Forecasted constraints on the cosmological parameters $\Omega_{m} - \sigma_z$ using the redMaGiC (red),  flux limited (blue) and color cuts-defined (gray) samples, described in section \ref{subsec: Sample_Selection}. {\textit{Panel (a):}} Using the redshift distributions obtained from the DES Y1 data. {\textit{Panel (b):}} Using a Gaussian photo-z model with a common underlying redshift distribution for the three samples and keeping the photo-z scatter parameter fixed.  {\textit{Panel (c):}} As in panel (b), but having the photo-z scatter parameter free, with some priors (see text).}
 \label{fig: Data_and_model}
 \end{figure*}
 
@@ -491,19 +492,19 @@ We adopt, for simplicity, a common underlying  redshift distribution for all sam
 \label{eq: red_dist}
 \frac{dN_{\mbox{\scriptsize{g}}}}{dz}(z) = \frac{\beta}{z_0^{1+a}\Gamma\left[ \frac{1+ \alpha}{\beta}\right]}z^\alpha \exp \left[-\left( \frac{z	}{z_{0}^{}}\right)^\beta \right],
 \end{equation}
-where $z_0, \,\alpha,\, \beta$ are parameters that determine the depth and the shape of the distribution, while the prefactor $ \frac{\beta}{z_0^{1+a}\Gamma\left[ \frac{1+ \alpha}{\beta}\right]}$ ensures that the distribution is normalized: $\int_0^{\infty} \frac{dn}{dz}dz = 1$. We obtain the values of the parameters by fitting \eqref{eq: red_dist} to the flux limited sample from DES Y1 data; we have: $z_0 = 0.50, \, \alpha=1.47, \, \beta = 2.09$. In Fig. \ref{fig: red_dist_mod}  this overall redshift distribution is plotted with the thick red line.
+where $z_0, \,\alpha,\, \beta$ are parameters that determine the depth and the shape of the distribution, while the prefactor $ \frac{\beta}{z_0^{1+a}\Gamma\left[ \frac{1+ \alpha}{\beta}\right]}$ ensures that the distribution is normalized: $\int_0^{\infty} \frac{dN_{\mbox{\scriptsize{g}}}}{dz}dz = 1$. We obtain the values of the parameters by fitting \eqref{eq: red_dist} to the flux limited sample from DES Y1 data; we have: $z_0 = 0.50, \, \alpha=1.47, \, \beta = 2.09$. In Fig. \ref{fig: red_dist_mod}  this overall redshift distribution is plotted with the thick red line.
 
 \subsubsection{Redshift uncertainties}
 
 As we described in \ref{subsec: Photo-zs} , we model redshift errors as  following a Gaussian distribution with a common scatter and one bias parameter per bin. This approach is usually adopted in the relevant literature concerning cosmological forecasts from photometric surveys. Then, in order to calculate the redshift distribution per redshift bin (which is the input for the calculation of the power spectra) we convolve the overall redshift distribution with the Gaussian pdf, eqs. \eqref{eq: W_i}-\eqref{eq: F_i}. That way, uncertainties in the photo-z parameters are propagated into uncertainties of the redshift distributions.
 
-In the DES Y1 analyses, the uncertainty in the photometric redshifts was taken into account by introducing shift parameters $\Delta z^i$, one per bin, such as the galaxy redshift distribution in the $i$-th bin,   $n_g^i(z)$, is written as: 
+In the DES Y1 analyses, the uncertainty in the photometric redshifts was taken into account by introducing shift parameters $\Delta z^i$, one per bin, such as the galaxy redshift distribution in the $i$-th bin,  $dN^i_{\mbox{\scriptsize{g}}}/dz \equiv n_g^i(z) $, is written as \citep{Hoyle2018, Elvin_Poole2018}: 
 \begin{equation}
 n_g^i(z) = \hat{n}^i_g(z - \Delta z^i)
 \label{eq: shifts}.
 \end{equation}
-$\hat{n}^i_g$ is the estimated redshift distribution, obtained from stacking the photo-z of  galaxies, in a manner similar to what we described in \ref{subsub: distributions}. This is equivalent (if we assume photo-z's close to Gaussian) to fixing the the photo-z scatter parameter to its fiducial value and leaving the photo-z biases free, with some prior. 
-This approach was tested to be sufficient in DES Y1; here, to allow more freedom, we leave both the photo-z scatter and biases free, with priors of the form $\sigma(\sigma_z) = \sigma(z_b^i) \propto \sigma_z$, i.e. proportional to the photo-z scatter (, see also \ref{subsec: Depend_on_priors}). We compare results from the two approaches in \ref{subsub: example} and in Appendix \ref{sec: shift_and_Gaussian}.
+$\hat{n}^i_g$ is the estimated redshift distribution, obtained from stacking the photo-z of  galaxies, in a manner similar to what we described in \ref{subsub: distributions}. This is equivalent (if we assume photo-zs approximately Gaussian) to fixing the the photo-z scatter parameter to its fiducial value and leaving the photo-z biases free, with some prior. 
+This approach was tested to be sufficient in DES Y1 \citep{Hoyle2018, Elvin_Poole2018}; here, to allow more freedom, we leave both the photo-z scatter and biases free, with priors of the form $\sigma(\sigma_z) = \sigma(z_b^i) \propto \sigma_z$, i.e. proportional to the photo-z scatter (e.g., \citealt{Hearin2010}, see also \ref{subsec: Depend_on_priors}). We compare results from the two approaches in \ref{subsub: example} and in Appendix \ref{sec: shift_and_Gaussian}.
 
 
 
@@ -520,11 +521,11 @@ Furthermore, we assume a constant bias per bin, equal to $b_g^i = 1 + \bar{z}^i$
 
 Before using our simple model to forecast constraints in a range of different samples, we would like to test its performance over a more detailed description for the three samples presented in \ref{subsec: Sample_Selection}.
 
-In Fig. \ref{fig: Data_and_model} we present the forecasted constraints on the the cosmological parameters $\Omega_{m,0}$ and $\sigma_8$ from the redMaGiC, flux limited and color cuts-defined samples, in five bins between $z=0.2$ and $z=0.95$, using auto-correlations only.
+In Fig. \ref{fig: Data_and_model} we present the forecasted constraints on the the cosmological parameters $\Omega_{m}$ and $\sigma_8$ from the redMaGiC, flux limited and color cuts-defined samples, in five bins between $z=0.2$ and $z=0.95$, using auto-correlations only.
 
-To get the results in panel (a) we use the redshift distributions of the three samples obtained from data and presented in FIg. \ref{fig: Red_dist_data}. We introduce five nuisance shift parameters $\Delta z^i$ (as in Eq. \ref{eq: shifts}), with priors $\sigma(\Delta z^i) = 0.007, 0.013, 0.009$ for redMaGiC, flux limited and color cuts-defined samples. 
+To get the results in panel (a) we use the redshift distributions of the three samples obtained from data and presented in Fig. \ref{fig: Red_dist_data}. We introduce five nuisance shift parameters $\Delta z^i$ (as in Eq. \ref{eq: shifts}), with priors $\sigma(\Delta z^i) = 0.007, 0.013, 0.009$ for the redMaGiC, flux limited and color cuts-defined samples \citep{DES1}. 
 
-In panel (b) we use the model we described earlier, adopting the same overall redshift distribution \eqref{eq: red_dist} for all three samples. We use Gaussian photo-z's with scatter $\sigma_{z,0} = 0.017, 0.073, 0.042$, as described in \ref{subsub: scaling}, and one bias parameter parameter per bin, with value $z_{\mbox{\scriptsize{b}}}^i = 0$. To compare with the previous case in an equal footing, we fix the photo-z scatter to its fiducial value, while we impose the same priors as before to the photo-z bias parameters and marginalize over them. The differences in the forecasted constraints on the two cosmological between the two, data-based and model-based, cases is of the order of $\sim 5\%$ for all samples, which shows that the model works well despite the simplifying assumptions of a common redshift distribution and Gaussian photo-z's.
+In panel (b) we use the model we described earlier, adopting the same overall redshift distribution \eqref{eq: red_dist} for all three samples. We use Gaussian photo-zs with scatter $\sigma_{z,0} = 0.017, 0.073, 0.042$, as described in \ref{subsub: scaling}, and one bias parameter parameter per bin, with value $z_{\mbox{\scriptsize{b}}}^i = 0$. To compare with the previous case in an equal footing, we fix the photo-z scatter to its fiducial value, while we impose the same priors as before to the photo-z bias parameters and marginalize over them. The differences in the forecasted constraints on the two cosmological parameters between the  data-based and model-based cases are of the order of $\sim 5\%$ for all samples, which shows that the model works well despite the simplifying assumptions of a common redshift distribution and Gaussian photo-zs.
 
 In panel (c) we use the same model as in (b), but now we leave the photo-z scatter free, imposing the same priors as on the photo-z bias and marginalizing over. Compared to the previous results, we note two main differences: First, now we get significantly worse constraints on $\sigma_8$ (for the redMaGiC sample $\sigma(\sigma_8)$ is $\sim 3$ times larger). Furthermore we see that, while in the previous cases all samples seem to perform equally well on $\sigma_8$, here the flux limited sample gives much better constraints than the redMaGiC sample, resulting in a much higher FoM (FoM$_{\mbox{\scriptsize{FL}}}$/FoM$_{\mbox{\scriptsize{RM}}} \sim 2.5$ here, while FoM$_{\mbox{\scriptsize{FL}}}$/FoM$_{\mbox{\scriptsize{RM}}} \sim 1.2$ in (b)). 
 
@@ -556,7 +557,7 @@ With these choices we cover a wide range of different samples, with the redMaGiC
 \subfigure[]{\includegraphics[width=\columnwidth]{optim_priors1.pdf}}
 \subfigure[]{\includegraphics[width=\columnwidth]{fixed_phot.pdf}}
 %\end{multicols}
-\caption{The Figure of Merit (FoM) for the set of parameters $\Omega_m - \sigma_8$ as a function of the photometric uncertainty scatter, $\sigma_{z,0}$ and galaxy sample size, $N_{\mbox{\scriptsize{g}}}$. The four figures correspond to different assumptions about our prior knowledge of the photo-z parameters: (a) No prior knowledge is assumed, photo-z parameters totally free. (b) A conservative prior of the form $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = 0.4\sigma_{z,0}$ is assumed. (c) An optimistic prior of the form $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = 0.04\sigma_{z,0}$ is assumed. (d) The photo-z parameters are held fixed in their fiducial values. In all cases the results are normalized to the FoM of the redMaGiC sample for the specific case, so only the relative differences between samples are shown. The overall FoM increases as we tighten our photo-z  priors (see main text).}
+\caption{The figure of merit (FoM) for the set of parameters $\Omega_m - \sigma_8$ as a function of the photometric uncertainty scatter, $\sigma_{z,0}$ and galaxy sample size, $N_{\mbox{\scriptsize{g}}}$. The four figures correspond to different assumptions about our prior knowledge of the photo-z parameters: (a) No prior knowledge is assumed, photo-z parameters totally free. (b) A conservative prior of the form $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = 0.4\sigma_{z,0}$ is assumed. (c) An optimistic prior of the form $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = 0.04\sigma_{z,0}$ is assumed. (d) The photo-z parameters are held fixed in their fiducial values. In all cases the results are normalized to the FoM of the redMaGiC sample for the specific case, so only the relative differences between samples are shown. The overall FoM increases as we tighten our photo-z  priors (see main text).}
 \label{fig: Baseline}
 \end{figure*}
 
@@ -573,15 +574,15 @@ In Fig. \ref{fig: Baseline} we present the FoM in the grid of samples defined ab
 
 In the first panel, (a), of Fig. \ref{fig: Baseline} we assume no priors on the photo-z parameters; we leave them free and marginalize over. We see that the FoM increases for better photo-zs and larger sample sizes. The FL sample gives a FoM that is $\sim 1.62$ higher than that of the RM sample, while the CC sample performs slightly better, giving a FoM that is $\sim 1.81$ higher that that of the RM sample.
 
-The introduction of priors on the photo-z parameters affects the results in two ways: first by changing the relative FoM between different samples and second by an overall shift of the FoM; tighter priors result in better constraints for all samples. In panels (b) and (c) we adopt priors of the form $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = 0.4(0.04)\sigma_{z,0}$, respectively. We assume that the priors simply scale with the photo-z scatter; this is expected for photometric redshifts externally calibrated using spectroscopic samples. For simplicity we assumed that the constant of proportionality is the same for all samples; in the case of panel (b) this corresponds to conservative priors, comparable to those used in the DES Y1 analysis; those of panel (c) correspond to optimistic priors, similar to those used in LSST forecasts.
+The introduction of priors on the photo-z parameters affects the results in two ways: first by changing the relative FoM between different samples and second by an overall shift of the FoM; tighter priors result in better constraints for all samples. In panels (b) and (c) we adopt priors of the form $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = 0.4(0.04)\sigma_{z,0}$, respectively. We assume that the priors simply scale with the photo-z scatter; this is expected for photometric redshifts externally calibrated using spectroscopic samples. For simplicity we assumed that the constant of proportionality is the same for all samples; in the case of panel (b) this corresponds to conservative priors, comparable to those used in the DES Y1 analysis; those of panel (c) correspond to optimistic priors, similar to those used forecasts for the LSST\footnote{\url{https://www.lsst.org/}} project (e.g., \citealt{Schaan2017}).
 
-This type of conservative priors give an overall increase of the FoM by a factor of $\sim 3$, while using the optimistic priors there is an overall increase by a factor of $\sim 12$, compared to the free photo-zs case (see also Fig. \ref{fig: Norm_increase}). Furthermore, as expected, the relative FoM of samples changes as well; for example, in the conservative priors case, now the FL sample gives a FoM $\sim 1.47$ times higher than the RM sample, while in the optimistic priors case the FL sample gives a FoM $\sim 1.16$ times higher than the RM one. In both cases the difference is lower than the case (a) where no priors were assumed. That is because of the scaling of the priors; samples with worse photo-z's have less informative priors as well.
+This type of conservative priors give an overall increase of the FoM by a factor of $\sim 3$, while using the optimistic priors there is an overall increase by a factor of $\sim 12$, compared to the free photo-zs case (see also Fig. \ref{fig: Norm_increase}). Furthermore, as expected, the relative FoM of samples changes as well; for example, in the conservative priors case, now the FL sample gives a FoM $\sim 1.47$ times higher than the RM sample, while in the optimistic priors case the FL sample gives a FoM $\sim 1.16$ times higher than the RM one. In both cases the difference is lower than the case (a) where no priors were assumed. That is because of the scaling of the priors; samples with worse photo-zs have less informative priors as well.
 
 Finally in panel (d) we show the case where the photo-z parameters are kept fixed in their fiducial values; in other words a perfect knowledge of them is assumed. This case represents the maximum information we can get from a particular sample. Under this assumption we have an overall increase of the FoM ($\sim 21$ times higher than the free photo-z case); also now the FoM of the FL sample is $\sim 3.40$ higher than that of the RM sample and that of the CC sample $\sim 2.43$ times higher.
 
-Generally, in all cases, we see that better photo-z's and larger samples are beneficial. However, there are some specific points worth noticing. For example, we observe that in most case the increase of the FoM with sample size is much more rapid in the region where photo-zs are better; this suggests that even a small increase in high-quality photo-z's can be extremely beneficial. We also see that the form of priors can introduce non-trivial trade-offs as in case (c). Interestingly enough, we find that in most cases some significantly larger samples with worse photo-zs have potentially better constraining power than the redMaGiC-like sample.
+Generally, in all cases, we see that better photo-zs and larger samples are beneficial. However, there are some specific points worth noticing. For example, we observe that in most case the increase of the FoM with sample size is much more rapid in the region where photo-zs are better; this suggests that even a small increase in high-quality photo-zs can be extremely beneficial. We also see that the form of priors can introduce non-trivial trade-offs as in case (c). Interestingly enough, we find that in most cases some significantly larger samples with worse photo-zs have potentially better constraining power than the redMaGiC-like sample.
 
-In the above paragraphs we studied the behavior of the Figure of Merit as a function of $\sigma_{z,0}$ and $N_{\mbox{\scriptsize{g}}}$, covering a wide range of samples. However, we have to note that there are not all regions in the plot allowed. For example, with the current photometric redshift estimation techniques,  accurate photometric redshifts can be estimated only for a small fraction  of the surveyed galaxies. Crudely, samples selected from photometric survey data are expected to lie close to the line that connects the two yellow triangles, with the exact position depending on the details of the selection cuts. 
+In the above paragraphs we studied the behavior of the figure of merit as a function of $\sigma_{z,0}$ and $N_{\mbox{\scriptsize{g}}}$, covering a wide range of samples. However, we have to note that there are not all regions in the plot allowed. For example, with the current photometric redshift estimation techniques,  accurate photometric redshifts can be estimated only for a small fraction  of the surveyed galaxies. Crudely, samples selected from photometric survey data are expected to lie close to the line that connects the triangles denoting the RM, CC and FL samples, with the exact position depending on the details of the selection cuts. 
 
 
 \subsection{Dependence on priors}
@@ -601,28 +602,28 @@ We have seen that the level of uncertainty on the photo-z parameters, quantified
 
 In the previous section we explored the effects of introducing two different types (conservative and optimistic) of priors on the photo-z parameters of the samples. One simplifying assumption made there was that the priors on both the photo-z scatter and bias were proportional to $\sigma_{z,0}$, with the constant of proportionality being the same for all samples. Furthermore, as we said, just two such values were considered. Here, we examine how different priors affect our results, by studying the behavior of the FoM  as a function of the photo-z parameter priors, for some characteristic samples.
 
-The priors on the photo-z parameters of samples used for cosmological analyses come from external calibration; the most direct method is to use a representative sub-sample for which spectroscopic redshifts or high-precision photometric redshifts are also available. If the size of the calibration sample is $N_{\mbox{\scriptsize{cal}}}$, then a simple model for the uncertainties of the photo-z parameters is:
+The priors on the photo-z parameters of samples used for cosmological analyses come from external calibration; the most direct method is to use a representative sub-sample for which spectroscopic redshifts or high-precision photometric redshifts are also available. If the size of the calibration sample is $N_{\mbox{\scriptsize{cal}}}$, then a simple model for the uncertainties of the photo-z parameters is \citep{Ma2006, Hearin2010, Newman2015}:
 \begin{eqnarray}
 \label{eq: simple_prior_model}
 \sigma(\sigma_z) = \sigma_z \sqrt{\frac{1}{2N_{\mbox{\scriptsize{cal}}}}},\\
 \sigma(z_{\mbox{\scriptsize{b}}}) = \frac{\sigma_z}{\sqrt{N_{\mbox{\scriptsize{cal}}}}}.
 \end{eqnarray}
-In practice, photometric surveys use other methods as well for the calibration of photometeric samples (for example cross-correlations with high-precision redshift samples). Furthermore, the above model is optimistic about the calibration requirements: it assumes Gaussian photo-z's, absence of catastrophic outliers and that the calibration sample is a fair representative of the calibration sample.
+In practice, photometric surveys use other methods as well for the calibration of photometric samples (for example cross-correlations with high-precision redshift samples, e.g., \citealt{Cawthon2018, Gatti2018}). Furthermore, the above model is optimistic about the calibration requirements: it assumes Gaussian photo-zs, absence of catastrophic outliers and that the calibration sample is a fair representative of the calibration sample.
 
 However, motivated by the above model, we assume, as in \ref{subsec: sig_sample_space} that priors are proportional to the photo-z scatter, so we write $\sigma(\sigma_{z,0}) = \sigma(z_{\mbox{\scriptsize{b}}}) = r  \sigma_{z,0}$, where $r \equiv \sigma(\sigma_{z,0})/\sigma_{z,0}$  being the proportionality constant, that quantifies the calibration needs of a sample, to achieve a certain prior. Intuitively, it makes sense to assume that samples with higher photo-z errors are also harder to calibrate. We  have chosen to plot the horizontal axis  in inverted order (higher to lower); lower values of $r = \sigma(\sigma_{z,0})/\sigma_{z,0}$ mean less constrained samples. 
 
 In Fig. \ref{fig: Priors_baseline} we plot the FoM as a function of the parameter $r$ for a number of samples: In the left-hand side panel we plot the RM, FL and CC, plus one more with photo-z errors and size that lies along the diagonal that connects the previous samples. Also, since currently  a lot of effort has been concentrated on selecting samples that are extensions of the redMaGiC sample (slightly worse photo-zs and larger sizes), we plot the redMaGiC sample and three such extensions in the right-hand panel of Fig. \ref{fig: Priors_baseline}. We normalize the FoM to the FoM the redMaGiC sample has when fixed photo-z parameters are assumed, FoM$_{\mbox{\scriptsize{RM,fix}}}$.
 
-Looking the left-hand side panel of \ref{fig: Priors_baseline},  we see that for values of the parameter $r > 0.01$ all samples have generally comparable FoMs. Interestingly enough, the flux limited sample ($N_{\mbox{\scriptsize{g}}} = 6.75 \times 10^7, \,\, \sigma_{z,0} = 0.073$) seems to always give better results than the redMaGiC sample ($N_{\mbox{\scriptsize{g}}} = 2.43 \times 10^6, \,\, \sigma_{z,0} = 0.017$), with significantly higher FoM for well-calibrated samples ($r<0.01$). However, given that even in optimistic forecasts, for future DES and LSST analyses we expect $r > 0.04$, we conclude that there is a small gain in using any of these samples; actually some of them give lower FoM than the redMaGiC one when $0.01 < r < 0.1$.
+Looking the left-hand side panel of Fig. \ref{fig: Priors_baseline},  we see that for values of the parameter $r > 0.01$ all samples have generally comparable FoMs. Interestingly enough, the flux limited sample ($N_{\mbox{\scriptsize{g}}} = 6.75 \times 10^7, \,\, \sigma_{z,0} = 0.073$) seems to always give better results than the redMaGiC sample ($N_{\mbox{\scriptsize{g}}} = 2.43 \times 10^6, \,\, \sigma_{z,0} = 0.017$), with significantly higher FoM for well-calibrated samples ($r<0.01$). However, given that even in optimistic forecasts, for future DES and LSST analyses we expect $r > 0.04$, we conclude that there is a small gain in using any of these samples; actually some of them give lower FoM than the redMaGiC one when $0.01 < r < 0.1$.
 
-More promising results come from the samples that are extensions of the redMaGiC one: from the right-hand side of \ref{fig: Priors_baseline} we can see that when such samples are considered, even in the plausible range of priors $0.01 \leq r \leq 0.1$, all of them overperform the redMaGiC sample, with the larger sample ($\sim 2.5$ larger size and $\sim 1.5$ higher redshift uncertainty) giving the best results.
+Similarly, for the samples that are extensions of the redMaGiC one, the gains from using an alternative sample are not significant in the plausible prior range. For  $r > 0.04$ all samples seem to give comparable constraints. Only for $ r < 0.04$ they start overperforming the redMaGiC sample, with larger of them giving a FoM $\sim 1.5$ larger than the redMaGiC for $r = 0.01$. 
 
-The above analysis suggests that in the scenario presented in in this section (clustering in five bins of width $\delta z = 0.15$, without cross-correlations) the gain from considering much larger samples than the redMaGiC, like a flux limited sample, with accordingly much higher redshift uncertainties, is limited. If we furthermore take into account the fact that for such samples the Gaussian approach taken here is not sufficient enough to describe their photo-z's (for example, does not take into account catastrophic failures), the small benefits of using a FL sample presented in Fig. \ref{fig: Baseline} may not hold in a more detailed analysis. 
+The above analysis suggests that in the scenario presented in in this section (clustering in five bins of width $\delta z = 0.15$, without cross-correlations) the gain from considering much larger samples than the redMaGiC, like a flux limited sample, with accordingly much higher redshift uncertainties, is limited. If we furthermore take into account the fact that for such samples the Gaussian approach taken here is not sufficient enough to describe their photo-zs (for example, does not take into account catastrophic failures), the small benefits of using a FL sample presented in Fig. \ref{fig: Baseline} may not hold in a more detailed analysis. 
 
 \section{Including cross-correlations}
 \label{sec: Cross_correlations}
 
-So far we have ignored the cross-correlations between redshift bins. Such an approach, that was used, for example, in the first year of DES clustering analysis makes sense when samples with accurate (scatter much smaller than the the redshift bin width) photo-z's are used. In that case, the overlap between redshift bins is minimal and thus the information from the cross-correlation spectra is not significant.
+So far we have ignored the cross-correlations between redshift bins. Such an approach, that was used, for example, in the first year of DES clustering analysis makes sense when samples with accurate (scatter much smaller than the the redshift bin width) photo-zs are used. In that case, the overlap between redshift bins is minimal and thus the information from the cross-correlation spectra is not significant.
 
 If we want to explore the possibility of using larger samples with higher photo-z uncertainties (and thus overlap between bins) in future analyses, we have to examine the importance of including the cross-correlations. In this section we study the forecasted cosmological constraints from a combined analysis of auto and cross spectra in a range of different samples.
 
@@ -656,7 +657,7 @@ Again, as in Sec. \ref{sec: Baseline} the FoM in each panel is normalized by div
 
 On the other hand, the improvement of the FoM of large samples with high photo-z errors is very significant. For example, in all four cases presented in Fig. \ref{fig: With_cross}  the flux limited sample has a FoM that is over an order of magnitude higher than that of the redMaGiC. This is in contrast to the case with only the auto-spectra, where the gain by going from the RM to the FL sample is only marginal.
 
-The behavior of the FoM in Fig. \ref{fig: With_cross} may seem to be counter-intuitive. Compare again these plots with those of Fig. \ref{fig: Baseline}. In the auto-spectra only case, the FoM peaks at the limit of large, most accurate photo-z samples (upper left corner of the plots). The FL sample may (slightly) outperform the RM one, but only because its size is large enough to compensate for the loss cause by the less accurate photo-z's. However, when cross-correlations are included the FoM peaks at the region of large samples and less accurate photo-z's (upper right corner of the plots). The counter-intuitive part is that when the cross-correlations are taken into account, it seems to be preferable to use  samples with worse photo-z's.
+The behavior of the FoM in Fig. \ref{fig: With_cross} may seem to be counter-intuitive. Compare again these plots with those of Fig. \ref{fig: Baseline}. In the auto-spectra only case, the FoM peaks at the limit of large, most accurate photo-z samples (upper left corner of the plots). The FL sample may (slightly) outperform the RM one, but only because its size is large enough to compensate for the loss cause by the less accurate photo-zs. However, when cross-correlations are included the FoM peaks at the region of large samples and less accurate photo-zs (upper right corner of the plots). The counter-intuitive part is that when the cross-correlations are taken into account, it seems to be preferable to use  samples with worse photo-zs.
 
 As we will explain in detail in the following section, what the above really suggests is that with our binning choice we do not take full advantage of the more accurate photo-z samples. In our discussion so far we have considered angular galaxy clustering in the same five bins of constant width $\delta z = 0.15$ for all samples. For such a bin width the overlap between the true redshift distributions of adjacent  redshift bins is significant when samples with high photo-z uncertainties ($\sigma_{z,0} \sim 0.07-0.01$), like that of the FL sample, are considered. Thus, significant information can be  obtained from the cross-correlation spectra. As we are moving to samples with more accurate photo-zs, we gain information from the auto-spectra that increase in amplitude (see the relevant discussion in Sec. \ref{sec: Samples_Constraints}). At the same time there is a significant drop of the overlap between redshift bins and the information from the cross spectra. For wide enough bins, the gain we have from the auto spectra is not enough to compensate the loss from the cross spectra (for wide bins we have erased the radial information anyway), leading to the behavior we see in Fig. \ref{fig: With_cross}.
 
@@ -666,6 +667,7 @@ In this section we explored the significance of including the cross correlations
 
 
 \section{Dependence on the bin size}
+\label{sec: Bin_size}
 
 
 
@@ -673,7 +675,7 @@ In this section we explored the significance of including the cross correlations
 \centering
 \subfigure[]{\includegraphics[width=\columnwidth]{FoM_nbins1.pdf}}
 \subfigure[]{\includegraphics[width=\columnwidth]{FoM_nbins2.pdf}}
-\caption{The dependence of the Figure of Merit on the number of bins used, or equivalently the bin width. We consider  the cases where only the auto-spectra are included (dashed lines) and both auto- and cross-spectra are taken into account (solid lines). In panel (a) we present the results for three samples all with size $N_{\mbox{\scriptsize{g}}} = 4 \times 10^7$ and different values for the photometric uncertainty scatter parameter. In panel (b) we present the results for the redMaGiC, and flux limited  and color-cuts defined samples.We note  that cross correlations become more and more important when the photo-z scatter is high compared to the bin size. The horizontal line corresponds to 5 bins, the baseline case we used in the previous sections.  }
+\caption{The dependence of the figure of merit on the number of bins used, or equivalently the bin width. We consider  the cases where only the auto-spectra are included (dashed lines) and both auto- and cross-spectra are taken into account (solid lines). In panel (a) we present the results for three samples all with size $N_{\mbox{\scriptsize{g}}} = 4 \times 10^7$ and different values for the photometric uncertainty scatter parameter. In panel (b) we present the results for the redMaGiC, and flux limited  and color-cuts defined samples.We note  that cross correlations become more and more important when the photo-z scatter is high compared to the bin size. The horizontal line corresponds to 5 bins, the baseline case we used in the previous sections.  }
 \label{fig: Number_of_bins}
 \end{figure*}
 
@@ -687,11 +689,12 @@ In the case where both auto and cross spectra are considered the FoM initially g
 
 In the right-hand side (panel (b)) of Fig. \ref{fig: Number_of_bins} we present a similar plot for the RM, FL and CC samples (thus samples of different size). The FoM in the auto-spectra only case is not the same now; the FL samples seems to have a consistently higher FoM, increasing with number of bins; that of the RM is slightly increasing and almost saturates for a large enough number of bins.  As expected from the previous discussion, when cross correlations are included the FoM of the FL sample grows rapidly with the number of bins but it soon saturates (for $\sim 10$ bins). Due to their more accurate photo-zs the FoM  of the CC and RM samples continues to grow; especially for the RM sample, it seems to be far from saturation even when 20 bins in the range $z \in [0.2,0.95]$ are considered, and significantly lower than that of the FL (and CC) sample.
 
-The above discussion suggests that if we want to extract the maximum possible information from samples with accurate photo-z's a large number of redshift bins is required. For a realistic number ($5-10$) of bins, larger samples with worse photo-zs outperform samples like the RM because of the information carried in the cross spectra.
+The above discussion suggests that if we want to extract the maximum possible information from samples with accurate photo-zs a large number of redshift bins is required. For a realistic number ($5-10$) of bins, larger samples with worse photo-zs outperform samples like the RM because of the information carried in the cross spectra.
 
 
 
 \section{Summary and conclusions}
+\label{sec: Conclusions}
 
 In this paper we have presented a systematic study of the trade-offs between photometric redshift uncertainty, $\sigma_{z,0}$ , and galaxy sample size, $N_{\mbox{\scriptsize{g}}}$. Our goal is to find optimal regions in the $\sigma_{z,0}$ -- $N_{\mbox{\scriptsize{g}}}$ parameter space that can yield maximum cosmological information from angular galaxy clustering, under different analysis assumptions (redshift bin sizes, inclusion or not of cross-correlations, priors on the photo-z parameters).
 
@@ -714,17 +717,17 @@ We forecast the constraints on $\Omega_m, \sigma_8$ from angular clustering in t
 
 $\bullet$ When we use the auto-correlation spectra only in our calculations, the gain from using a large sample, with high photo-z uncertainty (like the flux limited sample) instead of a smaller sample with accurate photo-zs (like the redMaGiC) is marginal. These conclusions hold for a range of plausible priors on the photo-z parameters.
 
-$\bullet$ When cross-correlations are included in the analysis, our results show a completely different behavior compared to the auto-spectra only case. Specifically, there is a significant cosmological information gain when using large, high redshift uncertainty samples. For example, using the flux limited sample, we get a Figure of Merit (FoM) that is $\sim 10 - 20$ times higher (for reasonable photo-z priors) than that we get from the redMaGiC sample. This can be explained by the fact that, for samples with high redshift uncertainty the overlap between redshift bins is significant, and thus the information we get from the inclusion of the cross-correlations in the analysis.
+$\bullet$ When cross-correlations are included in the analysis, our results show a completely different behavior compared to the auto-spectra only case. Specifically, there is a significant cosmological information gain when using large, high redshift uncertainty samples. For example, using the flux limited sample, we get a figure of merit (FoM) that is $\sim 10 - 20$ times higher (for reasonable photo-z priors) than that we get from the redMaGiC sample. This can be explained by the fact that, for samples with high redshift uncertainty the overlap between redshift bins is significant, and thus the information we get from the inclusion of the cross-correlations in the analysis.
 
-We finally considered the effect  of the bin size, or equivalently the number of bins in the $0.2 - 0.95$ redshift range, on our results. We find (in the interesting case when cross correlations are included) that, for a small number $(5-10)$ of bins, those samples with high $\sigma_{z,0}$ give a higher FoM, for the reasons explained above. The FoM increases with number of bins and saturates when the bin size, $\delta z \sim \sigma_{z,0}$. For samples with accurate photo-zs (low $\sigma_{z,0}$) the FoM continues to grow even when a large number of bins is considered and finally a higher FoM is achieved, a result of the fact that intrinsically these samples carry more information that can be retrieved with the appropriate thin binning. However, we note that the number of bins required for samples like the redMaGiC to give their full potential may be impractical (size $\delta z \sim 0.017$ which means $\sim 40$ bins in the considered redshift range).
+We finally considered the effect  of the bin size, or equivalently the number of bins in the $0.2 - 0.95$ redshift range, on our results. We find (in the interesting case when cross correlations are included) that, for a small number $(5-10)$ of bins, those samples with high $\sigma_{z,0}$ give a higher FoM, for the reasons explained above. The FoM increases with number of bins and saturates when the bin size, $\delta z \sim \sigma_{z,0}$. For samples with accurate photo-zs (low $\sigma_{z,0}$) the FoM continues to grow even when a large number of bins is considered and finally a higher FoM is achieved, a result of the fact that intrinsically these samples carry more information that can be retrieved with the appropriate thin binning. However, we note that the number of bins required for samples like the redMaGiC to give their full potential may be impractical (width $\delta z \sim 0.017$ which means $\sim 40$ bins in the considered redshift range).
 
-Although our analysis used DES as a primary example of a photometric galaxy survey, we expect our main qualitative conclusions to hold for other surveys as well, like the upcoming LSST.
+Although our analysis used DES as a primary example of a photometric galaxy survey, we expect our main qualitative conclusions to hold for other surveys as well, like the upcoming LSST survey.
 
 
 \section*{Acknowledgements}
 
-
-
+We thank Scott Dodelson, Samuel Passaglia , .... for useful discussions.
+The confidence ellipses of Fig. \ref{fig: Data_and_model} were plotted using the CosmicFish package for cosmological forecasts \citep{Raveri2016}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
@@ -739,6 +742,112 @@ Although our analysis used DES as a primary example of a photometric galaxy surv
 % This method is tedious and prone to error if you have lots of references
 \begin{thebibliography}{99}
 
+\bibitem[\protect\citeauthoryear{Abbott, et al.}{2018}]{DES1} Abbott T.~M.~C., et al., 2018, PhRvD, 98, 43526
+
+\bibitem[\protect\citeauthoryear{Albrecht, et al.}{2006}]{Albrecht2006} Albrecht A., et al., 2006, arXiv e-prints, astro–ph/0609591
+
+\bibitem[\protect\citeauthoryear{Amendola \& Tsujikawa}{2010}]{Amendola2010} Amendola, L., \& Tsujikawa, S.\ 2010, Dark Energy : Theory and Observations by Luca Amendola and Shinji Tsujikawa.~Cambridge University Press, 2010.~ISBN: 9780521516006
+
+\bibitem[\protect\citeauthoryear{Asorey, Crocce, Gazta{\~n}aga \& Lewis}{2012}]{Asorey2012} Asorey J., Crocce M., Gazta{\~n}aga E., Lewis A., 2012, MNRAS, 427, 1891
+
+\bibitem[\protect\citeauthoryear{Asorey, Carrasco Kind, Sevilla-Noarbe, Brunner \& Thaler}{2016}]{Asorey2016} Asorey J., Carrasco Kind M., Sevilla-Noarbe I., Brunner R.~J., Thaler J., 2016, MNRAS, 459, 1293
+
+\bibitem[\protect\citeauthoryear{Balaguera-Antol{\'{\i}}nez et al.}{2018}]{Balaguera2018} Balaguera-Antol{\'{\i}}nez, A., Bilicki, M., Branchini, E., \& Postiglione, A.\ 2018, \mnras, 476, 1050 
+
+\bibitem[\protect\citeauthoryear{Baugh \& Murdin}{2000}]{Baugh2000} Baugh, C., \& Murdin, P.\ 2000, Encyclopedia of Astronomy and Astrophysics, 2136 
+
+\bibitem[\protect\citeauthoryear{Ben{\'\i}tez}{2000}]{Benitez} Ben{\'\i}tez N., 2000, ApJ, 536, 571
+
+\bibitem[\protect\citeauthoryear{Ben{\'\i}tez, et al.}{2009}]{Benitez2009} Ben{\'\i}tez N., et al., 2009, ApJ, 691, 241
+
+\bibitem[\protect\citeauthoryear{Bertin \& Arnouts}{1996}]{Bertin1996} Bertin, E., \& Arnouts, S.\ 1996, \aaps, 117, 393 
+
+\bibitem[\protect\citeauthoryear{Bertone et al.}{2005}]{Bertone2005} Bertone, G., Hooper, D., \& Silk, J.\ 2005, \physrep, 405, 279 
+
+\bibitem[\protect\citeauthoryear{Bertone \& Hooper}{2018}]{Bertone2016} Bertone G., Hooper D., 2018, RvMP, 90, 45002
+
+\bibitem[\protect\citeauthoryear{Budav{\'a}ri, et al.}{2003}]{Budav} Budav{\'a}ri T., et al., 2003, ApJ, 595, 59
+
+\bibitem[\protect\citeauthoryear{Cawthon, et al.}{2018}]{Cawthon2018} Cawthon R., et al., 2018, MNRAS, 481, 2427
+
+\bibitem[\protect\citeauthoryear{Chaves-Montero, Angulo \& Hern{\'a}ndez-Monteagudo}{2018}]{Chaves2018} Chaves-Montero J., Angulo R.~E., Hern{\'a}ndez-Monteagudo C., 2018, MNRAS, 477, 3892
+
+\bibitem[\protect\citeauthoryear{Crocce, Cabr{\'e} \& Gazta{\~n}aga}{2011}]{Crocce2011} Crocce M., Cabr{\'e} A., Gazta{\~n}aga E., 2011, MNRAS, 414, 329
+
+\bibitem[\protect\citeauthoryear{Crocce et al.}{2016}]{Crocce2016} Crocce, M., Carretero, J., Bauer, A.~H., et al.\ 2016, \mnras, 455, 4301
+
+\bibitem[\protect\citeauthoryear{Crocce, et al.}{2019}]{Crocce2019} Crocce M., et al., 2019, MNRAS, 482, 2807
+
+
+
+\bibitem[\protect\citeauthoryear{Dodelson}{2003}]{Dodelson2013} Dodelson, S.\ 2003, Modern cosmology / Scott Dodelson.~Amsterdam (Netherlands): Academic Press.~ISBN 0-12-219141-2, 2003, XIII + 440 
+
+\bibitem[\protect\citeauthoryear{Drlica-Wagner et al.}{2018}]{Drlica2018} Drlica-Wagner, A., Sevilla-Noarbe, I., Rykoff, E.~S., et al.\ 2018, \apjs, 235, 33 
+
+\bibitem[\protect\citeauthoryear{Eisenstein et al.}{2001}]{Eisenstein2001} Eisenstein, D.~J., Annis, J., Gunn, J.~E., et al.\ 2001, \aj, 122, 2267 
+
+\bibitem[\protect\citeauthoryear{Efstathiou et al.}{1991}]{Efstathiou1991} Efstathiou, G., Bernstein, G., Katz, N., Tyson, J.~A., \& Guhathakurta, P.\ 1991, \apjl, 380, L47 
+
+\bibitem[\protect\citeauthoryear{Elvin-Poole, et al.}{2018}]{Elvin_Poole2018} Elvin-Poole J., et al., 2018, PhRvD, 98, 42006
+
+\bibitem[\protect\citeauthoryear{Flaugher, et al.}{2015}]{Flauger2015} Flaugher B., et al., 2015, AJ, 150, 150
+
+\bibitem[\protect\citeauthoryear{Frieman et al.}{ 2008}]{Frieman2008} Frieman, J.~A., Turner, M.~S., \& Huterer, D.\ 2008, \araa, 46, 385
+
+\bibitem[\protect\citeauthoryear{Fry \& Gaztanaga}{1993}]{Fry1993} Fry, J.~N., \& Gaztanaga, E.\ 1993, \apj, 413, 447
+
+\bibitem[\protect\citeauthoryear{Gatti, et al.}{2018}]{Gatti2018} Gatti M., et al., 2018, MNRAS, 477, 1664 
+
+\bibitem[\protect\citeauthoryear{Hearin, Zentner, Ma \& Huterer}{2010}]{Hearin2010} Hearin A.~P., Zentner A.~R., Ma Z., Huterer D., 2010, ApJ, 720, 1351
+
+\bibitem[\protect\citeauthoryear{Hearin, Zentner \& Ma}{2012}]{Hearin2012} Hearin A.~P., Zentner A.~R., Ma Z., 2012, Journal of Cosmology and Astro-Particle Physics, 2012, 34
+
+\bibitem[\protect\citeauthoryear{Hoyle, et al.}{2018}]{Hoyle2018} Hoyle B., et al., 2018, MNRAS, 478, 592
+
+\bibitem[\protect\citeauthoryear{Hu \& Jain}{2004}]{Hu2004} Hu W., Jain B., 2004, PhRvD, 70, 43009
+
+\bibitem[\protect\citeauthoryear{Joudaki, et al.}{2018}]{Joudaki2018} Joudaki S., et al., 2018, MNRAS, 474, 4894
+
+\bibitem[\protect\citeauthoryear{Krause \& Eifler}{2017}]{Krause2017a} Krause, E., \& Eifler, T.\ 2017, \mnras, 470, 2100 
+
+\bibitem[\protect\citeauthoryear{Krause et al.}{2017}]{Krause2017} Krause, E., Eifler, T.~F., Zuntz, J., et al.\ 2017, arXiv:1706.09359 
+
+\bibitem[\protect\citeauthoryear{Lewis et al.}{2000}]{Lewis2000} Lewis, A., Challinor, A., \& Lasenby, A.\ 2000, \apj, 538, 473 
+
+\bibitem[\protect\citeauthoryear{Limber}{1953}]{Limber1953} Limber, D.~N.\ 1953, \apj, 117, 134 
+
+\bibitem[\protect\citeauthoryear{Loverde \& Afshordi}{2008}]{Loverde2008} Loverde, M., \& Afshordi, N.\ 2008, \prd, 78, 123506 
+
+\bibitem[\protect\citeauthoryear{Ma et al.}{2006}]{Ma2006} Ma, Z., Hu, W., \& Huterer, D.\ 2006, \apj, 636, 21 
+
+\bibitem[\protect\citeauthoryear{Newman, et al.}{2015}]{Newman2015} Newman J.~A., et al., 2015, APh, 63, 81
+
+
+\bibitem[\protect\citeauthoryear{Padmanabhan et al.}{2005}]{Padmanabhan2005} Padmanabhan, N., Budav{\'a}ri, T., Schlegel, D.~J., et al.\ 2005, \mnras, 359, 237
+
+\bibitem[\protect\citeauthoryear{Padmanabhan et al.}{2007}]{Padmanabhan2007} Padmanabhan, N., Schlegel, D.~J., Seljak, U., et al.\ 2007, \mnras, 378, 852 
+
+\bibitem[\protect\citeauthoryear{Passaglia, Manzotti \& Dodelson}{2017}]{Passaglia2017} Passaglia S., Manzotti A., Dodelson S., 2017, PhRvD, 95, 123508
+
+\bibitem[\protect\citeauthoryear{Raveri, Martinelli, Zhao \& Wang}{2016}]{Raveri2016} Raveri M., Martinelli M., Zhao G., Wang Y., 2016, arXiv e-prints, arXiv:1606.06268
+
+\bibitem[\protect\citeauthoryear{Rozo et al. }{2016}]{Rozo2016} Rozo, E., Rykoff, E.~S., Abate, A., et al.\ 2016, \mnras, 461, 1431
+
+\bibitem[\protect\citeauthoryear{Salvato, Ilbert \& Hoyle}{2019}]{Salvato2019} Salvato M., Ilbert O., Hoyle B., 2019, Nature Astronomy, 3, 212 
+
+\bibitem[\protect\citeauthoryear{Schaan, Krause, Eifler, Dor{\'e}, Miyatake, Rhodes \& Spergel}{2017}]{Schaan2017} Schaan E., Krause E., Eifler T., Dor{\'e} O., Miyatake H., Rhodes J., Spergel D.~N., 2017, PhRvD, 95, 123512
+
+\bibitem[\protect\citeauthoryear{Sevilla, et al.}{2011}]{Sevilla2011} Sevilla I., et al., 2011, arXiv e-prints, arXiv:1109.6741
+
+
+\bibitem[\protect\citeauthoryear{Smail et al.}{1994}]{Smail1994} Smail, I., Ellis, R.~S., \& Fitchett, M.~J.\ 1994, \mnras, 270, 245 
+
+\bibitem[\protect\citeauthoryear{Takahashi et al.}{2012}]{Takahashi2012} Takahashi, R., Sato, M., Nishimichi, T., Taruya, A., \& Oguri, M.\ 2012, \apj, 761, 152 
+
+\bibitem[\protect\citeauthoryear{Tegmark et al.}{1997}]{Tegmark1997} Tegmark, M., Taylor, A.~N., \& Heavens, A.~F.\ 1997, \apj, 480, 22 
+
+\bibitem[\protect\citeauthoryear{The Dark Energy Survey Collaboration}{2005}]{DES2005} The Dark Energy Survey Collaboration, 2005, arXiv e-prints, astro-ph/0510346
+
 
 \end{thebibliography}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -750,7 +859,6 @@ Although our analysis used DES as a primary example of a photometric galaxy surv
 
 
 
-
 \section{Results with fixed photo-z scatter}
 \label{sec: shift_and_Gaussian}
 
@@ -758,11 +866,13 @@ Although our analysis used DES as a primary example of a photometric galaxy surv
 \centering
 \subfigure[]{\includegraphics[width=\columnwidth]{Cons_priors2.pdf}}
 \subfigure[]{\includegraphics[width=\columnwidth]{Cross_cons_priors2.pdf}}
-\caption{lala  }
+\caption{{\textit{Panel} (a)}: As in Fig. \ref{fig: Baseline} (no cross correlations), panel (b), but now fixing the photo-z scatter parameter, $\sigma_{z,0}$, to its fiducial value for each sample. {\textit{Panel}} (b): As in Fig. \ref{fig: With_cross} (with cross correlations), panel (b), now with fixed $\sigma_{z,0}$.}
 \label{fig: Fixed_phot_z}
 \end{figure*}
 
-In the main text we performed our analysis leaving the photo-z scatter parameter, $\sigma_{z,0}$ free and then we marginalized over it after imposing some meaningful priors. 	However, in Fig. \ref{fig: Data_and_model} we saw that this choice gives different results compared to the case where $\sigma_{z,0}$ is kept fixed to its fiducial value, an approach that is closer to the treatment of photo-z uncertainty in DES Y1 analyses.
+
+
+In the main text we performed our analysis leaving the photo-z scatter parameter, $\sigma_{z,0}$, free and then we marginalized over it after imposing some meaningful priors. 	However, in Fig. \ref{fig: Data_and_model} we saw that this choice gives different results compared to the case where $\sigma_{z,0}$ is kept fixed to its fiducial value, an approach that is closer to the treatment of photo-z uncertainty in DES Y1 analyses.
 
 Here we briefly examine how some of our results change when we fix the photo-z scatter parameter and leave free only the photo-z bias parameters.
 
@@ -797,7 +907,7 @@ Let us start by calculating the derivative of the angular spectra with respect t
 
 From the definition of the clustering kernel, we have:
 \begin{equation}
-\frac{\partial W^i(z)}{\partial \sigma_{z,0}} =b_g^i \frac{dn}{dz}\frac{\frac{\partial F^i(z)}{\partial \sigma_{z,0}}\int \frac{dn}{dz'}F^i(z')dz' -F^i(z)\int \frac{dn}{dz'} \frac{\partial F^i(z')}{\partial \sigma_{z,0} }dz'}{\left(\int \frac{dn}{dz'}F^i(z')dz' \right)^2},
+\frac{\partial W^i(z)}{\partial \sigma_{z,0}} =b_g^i\frac{dN_{\mbox{\scriptsize{g}}} }{dz}\frac{\frac{\partial F^i(z)}{\partial \sigma_{z,0}}\int \frac{dN_{\mbox{\scriptsize{g}}} }{dz'}F^i(z')dz' -F^i(z)\int \frac{dN_{\mbox{\scriptsize{g}}} }{dz'} \frac{\partial F^i(z')}{\partial \sigma_{z,0} }dz'}{\left(\int \frac{dN_{\mbox{\scriptsize{g}}} }{dz'}F^i(z')dz' \right)^2},
 \end{equation}
 with:
 \begin{equation}
