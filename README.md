@@ -1,1 +1,3 @@
-# Photo_z_samples
+# Galaxy Sample optimization
+
+This notebook contains code related to the paper ***Optimizing galaxy samples for clustering measurements in photometric surveys***, arXiv: [1908.07150](https://arxiv.org/abs/1908.07150).
